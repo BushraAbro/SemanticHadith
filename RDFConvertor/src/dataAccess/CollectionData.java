@@ -31,9 +31,9 @@ public class CollectionData {
 		this.collectionArabName = collectionArabName;
 	}
 	public String getCollectionUrduName() {
-		return collectionArabName;
+		return collectionUrduName;
 	}
 	public void setCollectionUrduName(String collectionArabName) {
-		this.collectionArabName = collectionArabName;
+		this.collectionUrduName = collectionUrduName;
 	}
 }

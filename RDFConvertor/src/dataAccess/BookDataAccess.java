@@ -20,10 +20,10 @@ public class BookDataAccess {
 		BookData book = new BookData();
 		String hadithRange="";
 		try {
-			ResultSet s = st.executeQuery("SELECT `collectionName`, `bookID`, `bookNameE`, `bookNameA`, `hadithRange` FROM books where `Index`="+Index);
+			ResultSet s = st.executeQuery("SELECT `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail` FROM csb_bookschapters where `bookschapters_id`="+Index);
 				while(s.next()){
-					book.setCollectionName(s.getString(1));
-					book.setBookNo(Integer.parseInt(s.getString(2)));
+					book.setSequenceNo(Integer.parseInt(s.getString(1)));
+					book.setHadithBookNo(Integer.parseInt(s.getString(2)));
 					book.setBookTitleE(s.getString(3));
 					book.setBookTitleA(s.getString(4));
 					hadithRange = s.getString(5);

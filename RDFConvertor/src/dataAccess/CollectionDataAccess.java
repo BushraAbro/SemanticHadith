@@ -14,11 +14,13 @@ public class CollectionDataAccess {
 	public static CollectionData setCollectionAtt(int Index,Connection conn, Statement st){
 		CollectionData collection = new CollectionData();
 		try {
-			ResultSet s = st.executeQuery("SELECT `collectionEngName`, `collectionArabName` FROM collection where `Index`="+Index);
+			ResultSet s = st.executeQuery("SELECT `arabic_s`,`urdu`,`english` FROM 02_booksnames where `booksnames_id`="+Index);
 			while(s.next()){
-				
-			collection.setCollectionEngName(s.getString(1));
-			collection.setCollectionArabName(s.getString(2));
+			
+			
+			collection.setCollectionArabName(s.getString(1));
+			collection.setCollectionUrduName(s.getString(2));
+			collection.setCollectionEngName(s.getString(3));
 		//	collection.setVolNo(Integer.parseInt(s.getString(2)));
 			
 			}

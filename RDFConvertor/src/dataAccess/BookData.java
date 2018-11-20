@@ -16,44 +16,48 @@ import java.util.List;
  */
 public class BookData {
 
-	 private Integer deprecatedBookNo;
-	 private Integer startHadithNo;
-	 private Integer endHadithNo;
-	 private Integer bookNo;
-	 private String bookTitleE;
+	 private Integer hadithBookNo;
+	 private Integer sequenceNo;
+	 private Integer hadithBookIntroA;
+	 private Integer hadithBookIntroE;
+	 private Integer hadithBookIntroU;
 	 private String bookTitleA;
-	 private String collectionName;
+	 private String bookTitleE;
+	 private String bookTitleU;
 	 
-	public String getCollectionName() {
-		return collectionName;
+	 
+	public Integer getHadithBookNo() {
+		return hadithBookNo;
 	}
-	public void setCollectionName(String collectionName) {
-		this.collectionName = collectionName;
+	public void setHadithBookNo(Integer hadithBookNo) {
+		this.hadithBookNo = hadithBookNo;
 	}
-	public Integer getDeprecatedBookNo() {
-		return deprecatedBookNo;
+	public Integer getSequenceNo() {
+		return sequenceNo;
 	}
-	public void setDeprecatedBookNo(Integer deprecatedBookNo) {
-		this.deprecatedBookNo = deprecatedBookNo;
+	public void setSequenceNo(Integer sequenceNo) {
+		this.sequenceNo = sequenceNo;
 	}
-	public Integer getStartHadithNo() {
-		return startHadithNo;
+	public Integer getHadithBookIntroA() {
+		return hadithBookIntroA;
 	}
-	public void setStartHadithNo(Integer startHadithNo) {
-		this.startHadithNo = startHadithNo;
+	public void setHadithBookIntroA(Integer hadithBookIntroA) {
+		this.hadithBookIntroA = hadithBookIntroA;
 	}
-	public Integer getEndHadithNo() {
-		return endHadithNo;
+	public Integer getHadithBookIntroE() {
+		return hadithBookIntroE;
 	}
-	public void setEndHadithNo(Integer endHadithNo) {
-		this.endHadithNo = endHadithNo;
+	public void setHadithBookIntroE(Integer hadithBookIntroE) {
+		this.hadithBookIntroE = hadithBookIntroE;
 	}
-	public Integer getBookNo() {
-		return bookNo;
+	public Integer getHadithBookIntroU() {
+		return hadithBookIntroU;
 	}
-	public void setBookNo(Integer bookNo) {
-		this.bookNo = bookNo;
+	public void setHadithBookIntroU(Integer hadithBookIntroU) {
+		this.hadithBookIntroU = hadithBookIntroU;
 	}
+	
+	
 	public String getBookTitleE() {
 		return bookTitleE;
 	}
@@ -65,5 +69,11 @@ public class BookData {
 	}
 	public void setBookTitleA(String bookTitleA) {
 		this.bookTitleA = bookTitleA;
+	}
+	public String getBookTitleU() {
+		return bookTitleU;
+	}
+	public void setBookTitleU(String bookTitleU) {
+		this.bookTitleU = bookTitleU;
 	}
 }

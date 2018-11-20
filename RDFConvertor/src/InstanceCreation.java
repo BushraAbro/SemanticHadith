@@ -155,14 +155,16 @@ public class InstanceCreation  {
 			// Create Collection Instance and add its data properties
 			HadithCollection collectionInstance = hadithFactory.createHadithCollection(instanceName);
 			//	collectionInstance.addHadithVolumeNo(cd.getVolNo());
-			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
+			
 			collectionInstance.addLabel(cd.getCollectionArabName()+"@ar");
+			collectionInstance.addLabel(cd.getCollectionUrduName()+"@ur");
+			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
 
 		}
 	}
 	// ******************* Create Book Instances *****************
 	public static void BookInstance(){
-		int row = rowCount("books");
+		int row = rowCount("csb_bookschapters");
 		for(int i = 1; i<=row; i++){
 			BookDataAccess bda = new BookDataAccess();
 			BookData bd = bda.setBookAtt(i, conn, st);
