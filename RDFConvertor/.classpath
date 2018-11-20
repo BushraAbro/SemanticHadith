@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/commons-net-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/protege-owl.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/ucanaccess-3.0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/ca.uvic.cs.chisel.cajun.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/guava.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.coode.dlquery.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.coode.owlviz.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.editor.owl.codegeneration.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.editor.owl.diff.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.editor.owl.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.editor.owl.rdf.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.explanation.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.integration.hermit.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.ontograf.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.owl.diff.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.protege.owl.rdf.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.semanticweb.HermiT.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/org.semanticweb.owl.owlapi.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/owlapi-distribution.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/protege-owl.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/plugins/uk.ac.manchester.cs.owl.factplusplus.jar"/>
+	<classpathentry kind="lib" path="/Users/bushra/Dropbox/BukhariOntoEvents/Code Jar files/protege.jar/protege.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
