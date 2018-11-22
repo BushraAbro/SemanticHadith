@@ -143,7 +143,7 @@ public class InstanceCreation  {
 		}
 		return count;
 	}
-
+public static HadithCollection collectionInstance;
 	// ******************* Create Collection Instances *****************
 	public static void CollectionInstance(){
 
@@ -153,7 +153,7 @@ public class InstanceCreation  {
 			CollectionData cd = cda.setCollectionAtt(i, conn, st);
 			String instanceName = "collection"+i;
 			// Create Collection Instance and add its data properties
-			HadithCollection collectionInstance = hadithFactory.createHadithCollection(instanceName);
+			collectionInstance = hadithFactory.createHadithCollection(instanceName);
 			//	collectionInstance.addHadithVolumeNo(cd.getVolNo());
 			
 			collectionInstance.addLabel(cd.getCollectionArabName()+"@ar");
@@ -171,15 +171,21 @@ public class InstanceCreation  {
 			String instanceName = "book"+i;
 			// Create Book Instance and add its data properties
 			HadithBook bookInstance = hadithFactory.createHadithBook(instanceName);
-			if(bd.getStartHadithNo()!=null){
-				bookInstance.addStartingHadithNo(bd.getStartHadithNo());
-				bookInstance.addEndingHadithNo(bd.getEndHadithNo());
-			}
-			bookInstance.addCollectionName(bd.getCollectionName());
-			bookInstance.addHadithBookNo(bd.getBookNo());
-			bookInstance.addHadithBookUrl("");
+			
+			bookInstance.addHadithBookNo(bd.getHadithBookNo());
+			bookInstance.addSequenceNo(bd.getSequenceNo());
 			bookInstance.addLabel(bd.getBookTitleA()+"@ar");
-			bookInstance.addLabel(bd.getBookTitleE()+"@en");
+			bookInstance.addLabel(bd.getBookTitleA()+"@ur");
+			bookInstance.addLabel(bd.getBookTitleA()+"@en");
+			bookInstance.addHadithBookIntro(bd.getHadithBookIntroA()+"@ar");
+			bookInstance.addHadithBookIntro(bd.getHadithBookIntroU()+"@ur");
+			bookInstance.addHadithBookIntro(bd.getHadithBookIntroE()+"@en");
+			
+			// Object Type Properties
+			String collectionName = "collection"+bd.getCollectionID();
+			collectionInstance = hadithFactory.getHadithCollection(collectionName);
+			bookInstance.addIsPartOf(collectionInstance);
+				
 		}
 	}
 

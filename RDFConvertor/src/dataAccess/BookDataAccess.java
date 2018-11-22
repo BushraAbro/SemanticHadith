@@ -20,25 +20,17 @@ public class BookDataAccess {
 		BookData book = new BookData();
 		String hadithRange="";
 		try {
-			ResultSet s = st.executeQuery("SELECT `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail` FROM csb_bookschapters where `bookschapters_id`="+Index);
+			ResultSet s = st.executeQuery("SELECT `booksnames_id`, `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail` FROM csb_bookschapters where `bookschapters_id`="+Index);
 				while(s.next()){
-					book.setSequenceNo(Integer.parseInt(s.getString(1)));
-					book.setHadithBookNo(Integer.parseInt(s.getString(2)));
-					book.setBookTitleE(s.getString(3));
-					book.setBookTitleA(s.getString(4));
-					hadithRange = s.getString(5);
-					
-					if(!hadithRange.trim().isEmpty())
-					{
-						List<String> range = Arrays.asList(hadithRange.trim().split("to"));
-						book.setStartHadithNo(Integer.parseInt(range.get(0).trim()));
-						book.setEndHadithNo(Integer.parseInt(range.get(1).trim()));
-					}
-					else
-						{
-						book.setStartHadithNo(null);
-						book.setEndHadithNo(null);
-						}
+					book.setCollectionID(Integer.parseInt(s.getString(1)));
+					book.setSequenceNo(Integer.parseInt(s.getString(2)));
+					book.setHadithBookNo(Integer.parseInt(s.getString(3)));
+					book.setHadithBookIntroA(s.getString(4));
+					book.setHadithBookIntroU(s.getString(5));
+					book.setHadithBookIntroE(s.getString(6));
+					book.setBookTitleA(s.getString(7));
+					book.setBookTitleU(s.getString(8));
+					book.setBookTitleE(s.getString(9));	
 					
 				}
 				//return book;

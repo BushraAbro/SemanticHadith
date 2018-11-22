@@ -18,13 +18,13 @@ public class BookData {
 
 	 private Integer hadithBookNo;
 	 private Integer sequenceNo;
-	 private Integer hadithBookIntroA;
-	 private Integer hadithBookIntroE;
-	 private Integer hadithBookIntroU;
+	 private String hadithBookIntroA;
+	 private String hadithBookIntroE;
+	 private String hadithBookIntroU;
 	 private String bookTitleA;
 	 private String bookTitleE;
 	 private String bookTitleU;
-	 
+	 private Integer collectionID;
 	 
 	public Integer getHadithBookNo() {
 		return hadithBookNo;
@@ -38,22 +38,22 @@ public class BookData {
 	public void setSequenceNo(Integer sequenceNo) {
 		this.sequenceNo = sequenceNo;
 	}
-	public Integer getHadithBookIntroA() {
+	public String getHadithBookIntroA() {
 		return hadithBookIntroA;
 	}
-	public void setHadithBookIntroA(Integer hadithBookIntroA) {
+	public void setHadithBookIntroA(String hadithBookIntroA) {
 		this.hadithBookIntroA = hadithBookIntroA;
 	}
-	public Integer getHadithBookIntroE() {
+	public String getHadithBookIntroE() {
 		return hadithBookIntroE;
 	}
-	public void setHadithBookIntroE(Integer hadithBookIntroE) {
+	public void setHadithBookIntroE(String hadithBookIntroE) {
 		this.hadithBookIntroE = hadithBookIntroE;
 	}
-	public Integer getHadithBookIntroU() {
+	public String getHadithBookIntroU() {
 		return hadithBookIntroU;
 	}
-	public void setHadithBookIntroU(Integer hadithBookIntroU) {
+	public void setHadithBookIntroU(String hadithBookIntroU) {
 		this.hadithBookIntroU = hadithBookIntroU;
 	}
 	
@@ -75,5 +75,12 @@ public class BookData {
 	}
 	public void setBookTitleU(String bookTitleU) {
 		this.bookTitleU = bookTitleU;
+	}
+	public Integer getCollectionID() {
+		return collectionID;
+	}
+	public void setCollectionID(Integer collectionID) {
+		this.collectionID = collectionID;
+		
 	}
 }

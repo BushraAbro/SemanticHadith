@@ -17,8 +17,8 @@ public class MainGlue {
 	ic.InitializeHadithEngine();
 	ic.createConnection();
 	ic.CollectionInstance();
-	/*	ic.BookInstance();
-	ic.ChapterInstance();
+	ic.BookInstance();
+	/*ic.ChapterInstance();
 	ic.HadithInstance();
 	ic.sanadInstance();
 	ic.MatanInstance();
