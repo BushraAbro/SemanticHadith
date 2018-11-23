@@ -200,7 +200,7 @@ public static HadithCollection collectionInstance;
 			String InstanceName = "chapter"+i;
 			// Create Chapter Instance and add its data properties
 			HadithChapter chapterInstance = hadithFactory.createHadithChapter(InstanceName);
-			if(cd.getChapIntro()!=null){
+		/*	if(cd.getChapIntro()!=null){
 				chapterInstance.addChapterTarjama(cd.getChapIntro());
 			}
 			chapterInstance.addHadithChapterNo(cd.getChapterNo());
@@ -208,6 +208,7 @@ public static HadithCollection collectionInstance;
 			chapterInstance.addLabel(cd.getChapLabelEng()+"@en");
 			chapterInstance.addCollectionName(cd.getCollectionName());
 			chapterInstance.addHadithBookNo(cd.getBookId());
+			*/
 
 		}
 	}

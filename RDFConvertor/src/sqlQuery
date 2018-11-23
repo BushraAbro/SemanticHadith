@@ -1,0 +1,4 @@
+SELECT csb_bookssubchapters.bookschapters_id, csb_bookssubchapters.s_sequence, csb_bookssubchapters.s_arabic_t, csb_hadith.arabic_t, csb_hadith.hadith_number 
+FROM csb_bookssubchapters 
+INNER JOIN csb_hadith ON csb_hadith.bookssubchapters_id = csb_bookssubchapters.bookssubchapters_id 
+where csb_bookssubchapters.bookssubchapters_id = csb_hadith.bookssubchapters_id AND csb_hadith.hadith_number LIKE 'Q%'

@@ -9,36 +9,38 @@ package dataAccess;
  */
 public class ChapterData {
 
-	private String chapIntro;
-	private Integer chapterNo;
+	private String chapterTarjama;
+	private String chapterNo;
 	private String chapLabelArab;
 	private String chapLabelEng;
+	private String chapLabelUrdu;
 	private Integer bookId;
-	private String collectionName;
+	private Integer sequenceNo;
 
-	public String getCollectionName() {
-		return collectionName;
-	}
-	public void setCollectionName(String collectionName) {
-		this.collectionName = collectionName;
-	}
+	
 	public Integer getBookId() {
 		return bookId;
 	}
 	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
-	public String getChapIntro() {
-		return chapIntro;
+	public String getchapterTarjama() {
+		return chapterTarjama;
 	}
-	public void setChapIntro(String chapIntro) {
-		this.chapIntro = chapIntro;
+	public void setchapterTarjama(String chapterTarjama) {
+		this.chapterTarjama = chapterTarjama;
 	}
-	public Integer getChapterNo() {
+	public String getChapterNo() {
 		return chapterNo;
 	}
-	public void setChapterNo(Integer chapterNo) {
+	public void setChapterNo(String chapterNo) {
 		this.chapterNo = chapterNo;
+	}
+	public Integer getSequenceNo() {
+		return sequenceNo;
+	}
+	public void setSequenceNo(Integer sequenceNo) {
+		this.sequenceNo = sequenceNo;
 	}
 	public String getChapLabelArab() {
 		return chapLabelArab;
@@ -51,6 +53,12 @@ public class ChapterData {
 	}
 	public void setChapLabelEng(String chapLabelEng) {
 		this.chapLabelEng = chapLabelEng;
+	}
+	public String getChapLabelUrdu() {
+		return chapLabelUrdu;
+	}
+	public void setChapLabelUrdu(String chapLabelUrdu) {
+		this.chapLabelUrdu = chapLabelUrdu;
 	}
 	
 }
