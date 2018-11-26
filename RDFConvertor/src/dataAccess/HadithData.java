@@ -8,14 +8,19 @@ package dataAccess;
  *
  */
 public class HadithData {
-	private Integer deprecatedHadithNo; 
-	private Integer hadithRefNo;
+	
 	private Integer InbookHadithNo;
 	private String hadithUrl;
-	private String fullHadith;
+	
 	private Integer bookId;
-	private Integer chapterId;
-	private String collectionName; 
+	private Integer chapterId; 
+	
+	private String fullHadith;
+	private String gradedBy;
+	private Integer hadithRefNo;
+	private Integer hadithRepetition;
+	private String hadithType;
+	
 	
 	public Integer getBookId() {
 		return bookId;
@@ -29,19 +34,7 @@ public class HadithData {
 	public void setChapterId(Integer chapterId) {
 		this.chapterId = chapterId;
 	}
-	public String getCollectionName() {
-		return collectionName;
-	}
-	public void setCollectionName(String collectionName) {
-		this.collectionName = collectionName;
-	}
-
-	public Integer getDeprecatedHadithNo() {
-		return deprecatedHadithNo;
-	}
-	public void setDeprecatedHadithNo(Integer deprecatedHadithNo) {
-		this.deprecatedHadithNo = deprecatedHadithNo;
-	}
+	
 	public Integer getHadithRefNo() {
 		return hadithRefNo;
 	}

@@ -3,19 +3,22 @@
  */
 package dataAccess;
 
+import java.util.ArrayList;
+
 /**
  * @author Bushra
  *
  */
 public class ChapterData {
 
-	private String chapterTarjama;
+
 	private String chapterNo;
 	private String chapLabelArab;
 	private String chapLabelEng;
 	private String chapLabelUrdu;
 	private Integer bookId;
 	private Integer sequenceNo;
+
 
 	
 	public Integer getBookId() {
@@ -24,12 +27,7 @@ public class ChapterData {
 	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
-	public String getchapterTarjama() {
-		return chapterTarjama;
-	}
-	public void setchapterTarjama(String chapterTarjama) {
-		this.chapterTarjama = chapterTarjama;
-	}
+	
 	public String getChapterNo() {
 		return chapterNo;
 	}
@@ -60,5 +58,7 @@ public class ChapterData {
 	public void setChapLabelUrdu(String chapLabelUrdu) {
 		this.chapLabelUrdu = chapLabelUrdu;
 	}
+	
+	
 	
 }

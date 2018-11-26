@@ -18,8 +18,8 @@ public class MainGlue {
 	ic.createConnection();
 	ic.CollectionInstance();
 	ic.BookInstance();
-	/*ic.ChapterInstance();
-	ic.HadithInstance();
+	ic.ChapterInstance();
+	/*ic.HadithInstance();
 	ic.sanadInstance();
 	ic.MatanInstance();
 	ic.verseInstance();

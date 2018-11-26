@@ -163,14 +163,16 @@ public static HadithCollection collectionInstance;
 		}
 	}
 	// ******************* Create Book Instances *****************
+	
+	private static HadithBook bookInstance;
 	public static void BookInstance(){
 		int row = rowCount("csb_bookschapters");
 		for(int i = 1; i<=row; i++){
 			BookDataAccess bda = new BookDataAccess();
 			BookData bd = bda.setBookAtt(i, conn, st);
-			String instanceName = "book"+i;
+			String instanceName = "book"+bd.getSequenceNo();
 			// Create Book Instance and add its data properties
-			HadithBook bookInstance = hadithFactory.createHadithBook(instanceName);
+			bookInstance = hadithFactory.createHadithBook(instanceName);
 			
 			bookInstance.addHadithBookNo(bd.getHadithBookNo());
 			bookInstance.addSequenceNo(bd.getSequenceNo());
@@ -190,45 +192,67 @@ public static HadithCollection collectionInstance;
 	}
 
 	// ******************* Create Chapter Instances *****************
+	private static HadithChapter chapterInstance;
 	public static void ChapterInstance()
 	{
-		int row = rowCount("chapter");
+		
+		int row = rowCount("csb_bookssubchapters");
 		for(int i=1; i<=row; i++){
 			ChapterDataAccess cda = new ChapterDataAccess();
 			ChapterData cd = cda.setChapterAtt(i, conn, st);
-
-			String InstanceName = "chapter"+i;
+			String InstanceName = "chapter"+cd.getBookId()+cd.getSequenceNo();
+			
 			// Create Chapter Instance and add its data properties
-			HadithChapter chapterInstance = hadithFactory.createHadithChapter(InstanceName);
-		/*	if(cd.getChapIntro()!=null){
-				chapterInstance.addChapterTarjama(cd.getChapIntro());
-			}
+			chapterInstance = hadithFactory.createHadithChapter(InstanceName);
 			chapterInstance.addHadithChapterNo(cd.getChapterNo());
+			chapterInstance.addSequenceNo(cd.getSequenceNo());
 			chapterInstance.addLabel(cd.getChapLabelArab()+"@ar");
+			chapterInstance.addLabel(cd.getChapLabelUrdu()+"@ur");
 			chapterInstance.addLabel(cd.getChapLabelEng()+"@en");
-			chapterInstance.addCollectionName(cd.getCollectionName());
-			chapterInstance.addHadithBookNo(cd.getBookId());
-			*/
+			
+			// Object Type Properties
+			String bookName = "book"+cd.getBookId();
+			bookInstance = hadithFactory.getHadithBook(bookName);
+			chapterInstance.addIsPartOf(bookInstance);
 
 		}
+		ChapterTarjama();
+		
+		
+	}
+	// ************* Chapter Tarjama ************
+	public static void ChapterTarjama()
+	{
+		ChapterTarjamaAccess cta = new ChapterTarjamaAccess();
+		ChapterTarjama ct = cta.setTarjamah(conn, st);
+		for (int j=0; j<ct.gethChapterNo().size(); j++) {
+			String chapName = "chapter"+ct.gethChapterNo().get(j);
+			chapterInstance = hadithFactory.getHadithChapter(chapName);
+			chapterInstance.addChapterTarjama(ct.gettarjamaArab().get(j)+"@ar");
+			chapterInstance.addChapterTarjama(ct.gettarjamaUrdu().get(j)+"@ur");
+			chapterInstance.addChapterTarjama(ct.gettarjamaEng().get(j)+"@en");
+			
+		}
+		
 	}
 
 	// ******************* Create Hadith Instances *****************
 	public static void HadithInstance(){
-		int row = rowCount("hadith2");
+		int row = rowCount("csb_hadith");
 		for(int i=1; i<=row; i++){
 			HadithDataAccess hda = new HadithDataAccess();
 			HadithData hd = hda.setHadithAtt(i, conn, st);
 			String instanceName = "hadith"+i;
 			// Create Hadith Instance and add its data properties
 			Hadith hadithInstance =	hadithFactory.createHadith(instanceName);
-			hadithInstance.addDeprecatedHadithNo(hd.getDeprecatedHadithNo());
 			hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 			hadithInstance.addHadithUrl(hd.getHadithUrl());
 			hadithInstance.addInBookNo(hd.getInbookHadithNo());
 			hadithInstance.addHadithBookNo(hd.getBookId());
-			hadithInstance.addCollectionName(hd.getCollectionName());
 			hadithInstance.addHadithChapterNo(hd.getChapterId());
+			
+			// Data type Properties
+			
 
 		}
 	}
