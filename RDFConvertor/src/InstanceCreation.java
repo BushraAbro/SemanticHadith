@@ -226,11 +226,15 @@ public static HadithCollection collectionInstance;
 		ChapterTarjamaAccess cta = new ChapterTarjamaAccess();
 		ChapterTarjama ct = cta.setTarjamah(conn, st);
 		for (int j=0; j<ct.gethChapterNo().size(); j++) {
-			String chapName = "chapter"+ct.gethChapterNo().get(j);
+			String chapName = "chapter"+ct.gethBookNo().get(j)+ct.gethChapterNo().get(j);
 			chapterInstance = hadithFactory.getHadithChapter(chapName);
-			chapterInstance.addChapterTarjama(ct.gettarjamaArab().get(j)+"@ar");
-			chapterInstance.addChapterTarjama(ct.gettarjamaUrdu().get(j)+"@ur");
-			chapterInstance.addChapterTarjama(ct.gettarjamaEng().get(j)+"@en");
+			
+			ArrayList<String> tarjamaA = ct.gettarjamaArab();
+			ArrayList<String> tarjamaU = ct.gettarjamaEng();
+			ArrayList<String> tarjamaE = ct.gettarjamaUrdu();
+		chapterInstance.addChapterTarjama(tarjamaA.get(j)+"@ar");
+			chapterInstance.addChapterTarjama(tarjamaU.get(j)+"@ur");
+		chapterInstance.addChapterTarjama(tarjamaE.get(j)+"@en");
 			
 		}
 		
@@ -242,18 +246,21 @@ public static HadithCollection collectionInstance;
 		for(int i=1; i<=row; i++){
 			HadithDataAccess hda = new HadithDataAccess();
 			HadithData hd = hda.setHadithAtt(i, conn, st);
-			String instanceName = "hadith"+i;
+			String instanceName = "hadith"+hd.getBookId()+hd.getChapterId()+hd.getHadithRefNo();
 			// Create Hadith Instance and add its data properties
 			Hadith hadithInstance =	hadithFactory.createHadith(instanceName);
 			hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
-			hadithInstance.addHadithUrl(hd.getHadithUrl());
-			hadithInstance.addInBookNo(hd.getInbookHadithNo());
-			hadithInstance.addHadithBookNo(hd.getBookId());
-			hadithInstance.addHadithChapterNo(hd.getChapterId());
+			hadithInstance.addSequenceNo(hd.getSequenceNo());
+			hadithInstance.addFullHadith(hd.getFullHadithA()+"@ar");
+			hadithInstance.addFullHadith(hd.getFullHadithU()+"@ur");
+			hadithInstance.addFullHadith(hd.getFullHadithE()+"@en");
+			hadithInstance.addHadithType(hd.getHadithType()+"@ar");
 			
-			// Data type Properties
 			
-
+			// Object Type Properties
+			String ChapterName = "chapter"+hd.getBookId()+hd.getChapterId();
+			chapterInstance = hadithFactory.getHadithChapter(ChapterName);
+			hadithInstance.addIsPartOf(chapterInstance);
 		}
 	}
 	// ******************* Create Matan Instances *****************

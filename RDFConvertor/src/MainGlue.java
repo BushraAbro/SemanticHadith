@@ -19,8 +19,8 @@ public class MainGlue {
 	ic.CollectionInstance();
 	ic.BookInstance();
 	ic.ChapterInstance();
-	/*ic.HadithInstance();
-	ic.sanadInstance();
+	//ic.HadithInstance();
+	/*ic.sanadInstance();
 	ic.MatanInstance();
 	ic.verseInstance();
 	ic.cityInstance();

@@ -4,14 +4,22 @@ import java.util.ArrayList;
 
 public class ChapterTarjama {
 	private ArrayList<Integer> hChapterNo;
+	private ArrayList<Integer> hBookNo;
 	private ArrayList<String> tarjamaArab;
 	private ArrayList<String> tarjamaUrdu;
 	private ArrayList<String> tarjamaEng;
+	
 	public ArrayList<Integer> gethChapterNo() {
 		return hChapterNo;
 	}
 	public void sethChapterNo(ArrayList<Integer> hChapterNo) {
 		this.hChapterNo = hChapterNo;
+	}
+	public ArrayList<Integer> gethBookNo() {
+		return hBookNo;
+	}
+	public void sethBookNo(ArrayList<Integer> hBookNo) {
+		this.hBookNo = hBookNo;
 	}
 	
 	public ArrayList<String> gettarjamaArab() {
