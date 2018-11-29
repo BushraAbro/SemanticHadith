@@ -20,7 +20,7 @@ public class HadithDataAccess {
 		
 		try {
 			ResultSet s = st.executeQuery("SELECT `bookschapters_id`,`bookssubchapters_id`,`sequence`,`hadith_number`,`hadith_type2`, `arabic_t`, "
-					+ "`urdu`,`english`,`mukarraat`,`Travi` FROM csb_hadith  WHERE `hadith_number` NOT LIKE 'Q%'"+Index);
+					+ "`urdu`,`english`,`mukarraat`,`Travi` FROM csb_hadith  WHERE `hadith_number` NOT LIKE 'Q%' AND hadith_id="+Index);
 			while(s.next()){
 				
 				hadith.setBookId(Integer.parseInt(s.getString(1)));

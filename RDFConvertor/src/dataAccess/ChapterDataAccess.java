@@ -19,7 +19,7 @@ public class ChapterDataAccess {
 		ChapterData chapter = new ChapterData();
 		try {
 			
-			ResultSet s = st.executeQuery("SELECT `bookschapters_id`,`s_sequence`,`s_number`,`s_arabic_t`,`s_urdu`,`s_english`"
+			ResultSet s = st.executeQuery("SELECT `bookschapters_id`,`s_sequence`,`s_number`,`s_arabic_t`,`s_urdu`,`s_english`,`bookssubchapters_id`"
 					+ " FROM csb_bookssubchapters where `bookssubchapters_id`="+Index );
 			while(s.next()){
 				chapter.setBookId(Integer.parseInt(s.getString(1)));
@@ -28,6 +28,7 @@ public class ChapterDataAccess {
 				chapter.setChapLabelArab(s.getString(4));
 				chapter.setChapLabelUrdu(s.getString(5));
 				chapter.setChapLabelEng(s.getString(6));
+				chapter.setChapIndex(Integer.parseInt(s.getString(7)));
 					
 				}
 			} catch (SQLException e) {

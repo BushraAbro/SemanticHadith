@@ -200,7 +200,7 @@ public static HadithCollection collectionInstance;
 		for(int i=1; i<=row; i++){
 			ChapterDataAccess cda = new ChapterDataAccess();
 			ChapterData cd = cda.setChapterAtt(i, conn, st);
-			String InstanceName = "chapter"+cd.getBookId()+cd.getSequenceNo();
+			String InstanceName = "chapter"+cd.getBookId()+cd.getChapIndex();
 			
 			// Create Chapter Instance and add its data properties
 			chapterInstance = hadithFactory.createHadithChapter(InstanceName);
@@ -228,14 +228,12 @@ public static HadithCollection collectionInstance;
 		for (int j=0; j<ct.gethChapterNo().size(); j++) {
 			String chapName = "chapter"+ct.gethBookNo().get(j)+ct.gethChapterNo().get(j);
 			chapterInstance = hadithFactory.getHadithChapter(chapName);
-			
 			ArrayList<String> tarjamaA = ct.gettarjamaArab();
 			ArrayList<String> tarjamaU = ct.gettarjamaEng();
 			ArrayList<String> tarjamaE = ct.gettarjamaUrdu();
-		chapterInstance.addChapterTarjama(tarjamaA.get(j)+"@ar");
+			chapterInstance.addChapterTarjama(tarjamaA.get(j)+"@ar");
 			chapterInstance.addChapterTarjama(tarjamaU.get(j)+"@ur");
 		chapterInstance.addChapterTarjama(tarjamaE.get(j)+"@en");
-			
 		}
 		
 	}
@@ -246,7 +244,8 @@ public static HadithCollection collectionInstance;
 		for(int i=1; i<=row; i++){
 			HadithDataAccess hda = new HadithDataAccess();
 			HadithData hd = hda.setHadithAtt(i, conn, st);
-			String instanceName = "hadith"+hd.getBookId()+hd.getChapterId()+hd.getHadithRefNo();
+			if(hd.getBookId()!=null){
+				String instanceName = "hadith"+hd.getBookId()+hd.getChapterId()+hd.getHadithRefNo();
 			// Create Hadith Instance and add its data properties
 			Hadith hadithInstance =	hadithFactory.createHadith(instanceName);
 			hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
@@ -261,6 +260,7 @@ public static HadithCollection collectionInstance;
 			String ChapterName = "chapter"+hd.getBookId()+hd.getChapterId();
 			chapterInstance = hadithFactory.getHadithChapter(ChapterName);
 			hadithInstance.addIsPartOf(chapterInstance);
+			}
 		}
 	}
 	// ******************* Create Matan Instances *****************
