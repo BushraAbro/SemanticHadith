@@ -9,12 +9,12 @@
  */
 public class MainGlue {
 	public static void main(String[] args){
-	//	String SOURCE_FILE = "//Users/bushra/Dropbox/BukhariOntoEvents/HadithVoc.owl";
-		String SOURCE_FILE = "D:\\Dropbox\\BukhariOntoEvents\\HadithVoc.owl";
+		String SOURCE_FILE = "//Users/bushra/Dropbox/BukhariOntoEvents/HadithVoc.owl";
+	//	String SOURCE_FILE = "D:\\Dropbox\\BukhariOntoEvents\\HadithVoc.owl";
 		// final String SOURCE_URL = "http://www.lodislamica.me/ontology/hadith";
 	//	String OutputFile = "//Users/bushra/Desktop/HadithVocRDF.owl";
 		String workingDir = System.getProperty("user.dir");
-		String OutputFile = workingDir+"\\HadithVocRDF.owl";
+		String OutputFile = workingDir+"/HadithVocRDF.owl";
 		System.out.println(OutputFile);
 	InstanceCreation ic = new InstanceCreation(SOURCE_FILE, OutputFile);
 	
@@ -24,6 +24,7 @@ public class MainGlue {
 	ic.BookInstance();
 	ic.ChapterInstance();
 	ic.HadithInstance();
+	ic.HadithNarrator();
 	/*ic.sanadInstance();
 	ic.MatanInstance();
 	ic.verseInstance();

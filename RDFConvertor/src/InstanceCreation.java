@@ -239,6 +239,7 @@ public static HadithCollection collectionInstance;
 	}
 
 	// ******************* Create Hadith Instances *****************
+	private static Hadith hadithInstance;
 	public static void HadithInstance(){
 		int row = rowCount("csb_hadith");
 		for(int i=1; i<=row; i++){
@@ -246,23 +247,47 @@ public static HadithCollection collectionInstance;
 			HadithData hd = hda.setHadithAtt(i, conn, st);
 			if(hd.getBookId()!=null){
 				String instanceName = "hadith"+hd.getBookId()+hd.getChapterId()+hd.getHadithRefNo();
-			// Create Hadith Instance and add its data properties
-			Hadith hadithInstance =	hadithFactory.createHadith(instanceName);
-			hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
-			hadithInstance.addSequenceNo(hd.getSequenceNo());
-			hadithInstance.addFullHadith(hd.getFullHadithA()+"@ar");
-			hadithInstance.addFullHadith(hd.getFullHadithU()+"@ur");
-			hadithInstance.addFullHadith(hd.getFullHadithE()+"@en");
-			hadithInstance.addHadithType(hd.getHadithType()+"@ar");
-			
-			
-			// Object Type Properties
-			String ChapterName = "chapter"+hd.getBookId()+hd.getChapterId();
-			chapterInstance = hadithFactory.getHadithChapter(ChapterName);
-			hadithInstance.addIsPartOf(chapterInstance);
+				// Create Hadith Instance and add its data properties
+				hadithInstance =	hadithFactory.createHadith(instanceName);
+				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
+				hadithInstance.addSequenceNo(hd.getSequenceNo());
+				//clean Arabic text from html tags
+				String fullHadith = hd.getFullHadithA().replaceAll("<[^>]*>", " ");
+				hadithInstance.addFullHadith(fullHadith+"@ar");
+
+				hadithInstance.addFullHadith(hd.getFullHadithU()+"@ur");
+				hadithInstance.addFullHadith(hd.getFullHadithE()+"@en");
+				hadithInstance.addHadithType(hd.getHadithType()+"@ar");
+
+				// Object Type Properties
+				String ChapterName = "chapter"+hd.getBookId()+hd.getChapterId();
+				chapterInstance = hadithFactory.getHadithChapter(ChapterName);
+				hadithInstance.addIsPartOf(chapterInstance);
 			}
 		}
 	}
+	// ******************* Create Narrator Instances *****************
+	public static void HadithNarrator(){
+		int row = rowCount("csb_hadith");
+		for(int i=1; i<=row; i++){
+			NarratorDataAccess nda = new NarratorDataAccess();
+			Raavi n = nda.setNarratorAtt(i, conn, st);
+			if(n.gethadithID()!=null){
+				String instanceName = "narrator"+n.gethadithID();
+
+				// Create Hadith Instance and add its data properties
+				RootNarrrator narratorInstance =	hadithFactory.createRootNarrrator(instanceName);
+				narratorInstance.addName(n.getRaavi()+"@ar");
+				System.out.println(n.getRaavi());
+
+				// Object Type Properties
+				String hadithName = "hadith"+n.getBookId()+n.getChapterId()+n.gethadithID();
+				hadithInstance = hadithFactory.getHadith(hadithName);
+				narratorInstance.addNarrated(hadithInstance);
+			}
+		}
+	}
+	 
 	// ******************* Create Matan Instances *****************
 	public static void MatanInstance(){
 		int row = rowCount("hadith2");

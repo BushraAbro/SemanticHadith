@@ -23,7 +23,7 @@ public class HadithData {
 	private String fullHadithA;
 	private String fullHadithU;
 	private String fullHadithE;
-	private String raavi;
+	
 	private String mukarrarat;
 	
 	
@@ -77,12 +77,7 @@ public class HadithData {
 		this.fullHadithE = fullHadithE;
 	}
 	
-	public String getRaavi() {
-		return raavi;
-	}
-	public void setRaavi(String raavi) {
-		this.raavi = raavi;
-	}
+	
 	
 	public String getMukarrarat() {
 		return mukarrarat;
