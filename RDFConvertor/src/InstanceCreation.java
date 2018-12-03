@@ -151,7 +151,8 @@ public static HadithCollection collectionInstance;
 		for(int i = 1; i<=row; i++){
 			CollectionDataAccess cda = new CollectionDataAccess();
 			CollectionData cd = cda.setCollectionAtt(i, conn, st);
-			String instanceName = "collection"+i;
+			String namePrefix = CollectionName(i);
+			String instanceName = namePrefix+i;
 			// Create Collection Instance and add its data properties
 			collectionInstance = hadithFactory.createHadithCollection(instanceName);
 			//	collectionInstance.addHadithVolumeNo(cd.getVolNo());
@@ -161,6 +162,25 @@ public static HadithCollection collectionInstance;
 			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
 
 		}
+	}
+	public static String CollectionName(int i) {
+		String prefix = "";
+		switch (i)
+		{
+		case 1:  prefix = "CSB"; // Sahih Bukhari 
+		break;
+		case 2:  prefix = "CSM"; // Sahih Muslim
+		break;
+		case 3:  prefix = "SAD"; // Sunan Abi Dauood
+		break;
+		case 4:  prefix = "SIM"; // Sunan Ibn Maja 
+		break;
+		case 5:  prefix = "SNA"; // Sunan Nasai
+		break;
+		case 6:  prefix = "JTI"; // Jam'i Tirmidhi
+		break;
+		}
+		return prefix;
 	}
 	// ******************* Create Book Instances *****************
 	
