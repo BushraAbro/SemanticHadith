@@ -21,10 +21,13 @@ public class BookData {
 	 private String hadithBookIntroA;
 	 private String hadithBookIntroE;
 	 private String hadithBookIntroU;
+	 
 	 private String bookTitleA;
 	 private String bookTitleE;
 	 private String bookTitleU;
+	 
 	 private Integer collectionID;
+	 private Integer bookTableKey;
 	 
 	public Integer getHadithBookNo() {
 		return hadithBookNo;
@@ -82,5 +85,12 @@ public class BookData {
 	public void setCollectionID(Integer collectionID) {
 		this.collectionID = collectionID;
 		
+	}
+	
+	public Integer getBookKey() {
+		return bookTableKey;
+	}
+	public void setBookKey(Integer bookTableKey) {
+		this.bookTableKey = bookTableKey;
 	}
 }

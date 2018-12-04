@@ -151,7 +151,7 @@ public static HadithCollection collectionInstance;
 		for(int i = 1; i<=row; i++){
 			CollectionDataAccess cda = new CollectionDataAccess();
 			CollectionData cd = cda.setCollectionAtt(i, conn, st);
-			String namePrefix = CollectionName(i);
+			String namePrefix = CollectionName(cd.getCollectionID());
 			String instanceName = namePrefix+i;
 			// Create Collection Instance and add its data properties
 			collectionInstance = hadithFactory.createHadithCollection(instanceName);
@@ -163,13 +163,13 @@ public static HadithCollection collectionInstance;
 
 		}
 	}
-	public static String CollectionName(int i) {
+	public static String CollectionName(Integer i) {
 		String prefix = "";
 		switch (i)
 		{
-		case 1:  prefix = "CSB"; // Sahih Bukhari 
+		case 1:  prefix = "SB"; // Sahih Bukhari 
 		break;
-		case 2:  prefix = "CSM"; // Sahih Muslim
+		case 2:  prefix = "SM"; // Sahih Muslim
 		break;
 		case 3:  prefix = "SAD"; // Sunan Abi Dauood
 		break;
@@ -190,7 +190,18 @@ public static HadithCollection collectionInstance;
 		for(int i = 1; i<=row; i++){
 			BookDataAccess bda = new BookDataAccess();
 			BookData bd = bda.setBookAtt(i, conn, st);
-			String instanceName = "book"+bd.getSequenceNo();
+			String collectionPrefix = CollectionName(bd.getCollectionID());
+			System.out.println(bd.getBookKey());
+			int bookKey = bd.getBookKey();
+			String bookKeyPadded=bookKey+"";
+			int digitsBookKey = 1 + (int)Math.floor(Math.log10(bookKey));
+			System.out.println(digitsBookKey);
+			if(digitsBookKey<2) {
+				int digitsToAdd = 2-digitsBookKey;
+				 bookKeyPadded = String.format("%02d" , bookKey);
+			}
+			String instanceName = collectionPrefix+"_"+"bk"+bookKeyPadded;
+		
 			// Create Book Instance and add its data properties
 			bookInstance = hadithFactory.createHadithBook(instanceName);
 			
@@ -204,7 +215,8 @@ public static HadithCollection collectionInstance;
 			bookInstance.addHadithBookIntro(bd.getHadithBookIntroE()+"@en");
 			
 			// Object Type Properties
-			String collectionName = "collection"+bd.getCollectionID();
+			
+			String collectionName = collectionPrefix+bd.getCollectionID();
 			collectionInstance = hadithFactory.getHadithCollection(collectionName);
 			bookInstance.addIsPartOf(collectionInstance);
 				

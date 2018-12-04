@@ -12,6 +12,7 @@ public class CollectionData {
 	private String collectionEngName;
 	private String collectionArabName;
 	private String collectionUrduName;
+	private Integer collectionID;
 	public Integer getVolNo() {
 		return volNo;
 	}
@@ -35,5 +36,12 @@ public class CollectionData {
 	}
 	public void setCollectionUrduName(String collectionArabName) {
 		this.collectionUrduName = collectionUrduName;
+	}
+	
+	public Integer getCollectionID() {
+		return collectionID;
+	}
+	public void setCollectionID(Integer collectionID) {
+		this.collectionID = collectionID;
 	}
 }
