@@ -19,6 +19,7 @@ public class ChapterData {
 	private Integer bookId;
 	private Integer sequenceNo;
 	private Integer chapIndex;
+	private Integer chapKey;
 
 	
 	public Integer getBookId() {
@@ -64,7 +65,12 @@ public class ChapterData {
 	public void setChapLabelUrdu(String chapLabelUrdu) {
 		this.chapLabelUrdu = chapLabelUrdu;
 	}
-	
+	public Integer getChapKey() {
+		return chapKey;
+	}
+	public void setChapKey(Integer chapKey) {
+		this.chapKey = chapKey;
+	}
 	
 	
 }

@@ -16,7 +16,10 @@ import java.util.Iterator;
 
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -145,22 +148,35 @@ public class InstanceCreation  {
 	}
 public static HadithCollection collectionInstance;
 	// ******************* Create Collection Instances *****************
-	public static void CollectionInstance(){
+	public static void CollectionInstance(String collectionTable){
 
-		int row = rowCount("02_booksnames");
+		int row = rowCount(collectionTable);
 		for(int i = 1; i<=row; i++){
 			CollectionDataAccess cda = new CollectionDataAccess();
 			CollectionData cd = cda.setCollectionAtt(i, conn, st);
-			String namePrefix = CollectionName(cd.getCollectionID());
-			String instanceName = namePrefix+i;
+			Integer collectionKey = cd.getCollectionID();
+			String namePrefix = CollectionName(collectionKey);
+			String collectionKeyPadded = "";
+			collectionKeyPadded = padding(collectionKey, 2);
+			String instanceName = namePrefix+collectionKeyPadded;
 			// Create Collection Instance and add its data properties
 			collectionInstance = hadithFactory.createHadithCollection(instanceName);
 			//	collectionInstance.addHadithVolumeNo(cd.getVolNo());
-			
 			collectionInstance.addLabel(cd.getCollectionArabName()+"@ar");
 			collectionInstance.addLabel(cd.getCollectionUrduName()+"@ur");
 			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
 
+		}
+	}
+	public static String padding(Integer number, Integer requiredDigits) {
+		String paddedString = "";
+		int length = (int) (Math.log10(number) + 1);
+		if(length<requiredDigits) {
+			 paddedString = String.format("%0"+requiredDigits+"d" , number);
+			 return paddedString;
+		}
+		else {
+		return number+"";
 		}
 	}
 	public static String CollectionName(Integer i) {
@@ -171,36 +187,32 @@ public static HadithCollection collectionInstance;
 		break;
 		case 2:  prefix = "SM"; // Sahih Muslim
 		break;
-		case 3:  prefix = "SAD"; // Sunan Abi Dauood
+		case 3:  prefix = "SD"; // Sunan Abi Dauood
 		break;
-		case 4:  prefix = "SIM"; // Sunan Ibn Maja 
+		case 4:  prefix = "SM"; // Sunan Ibn Maja 
 		break;
-		case 5:  prefix = "SNA"; // Sunan Nasai
+		case 5:  prefix = "SN"; // Sunan Nasai
 		break;
-		case 6:  prefix = "JTI"; // Jam'i Tirmidhi
+		case 6:  prefix = "JT"; // Jam'i Tirmidhi
 		break;
+		default: prefix = "misc";
 		}
 		return prefix;
 	}
 	// ******************* Create Book Instances *****************
 	
 	private static HadithBook bookInstance;
-	public static void BookInstance(){
-		int row = rowCount("csb_bookschapters");
+	public static void BookInstance(String bookTable){
+		int row = rowCount(bookTable);
 		for(int i = 1; i<=row; i++){
 			BookDataAccess bda = new BookDataAccess();
 			BookData bd = bda.setBookAtt(i, conn, st);
+			
+			//Instance Name functionality
 			String collectionPrefix = CollectionName(bd.getCollectionID());
-			System.out.println(bd.getBookKey());
 			int bookKey = bd.getBookKey();
-			String bookKeyPadded=bookKey+"";
-			int digitsBookKey = 1 + (int)Math.floor(Math.log10(bookKey));
-			System.out.println(digitsBookKey);
-			if(digitsBookKey<2) {
-				int digitsToAdd = 2-digitsBookKey;
-				 bookKeyPadded = String.format("%02d" , bookKey);
-			}
-			String instanceName = collectionPrefix+"_"+"bk"+bookKeyPadded;
+			String bookKeyPadded = padding(bookKey, 2);
+			String instanceName = collectionPrefix+"-"+"BK"+bookKeyPadded;
 		
 			// Create Book Instance and add its data properties
 			bookInstance = hadithFactory.createHadithBook(instanceName);
@@ -216,7 +228,7 @@ public static HadithCollection collectionInstance;
 			
 			// Object Type Properties
 			
-			String collectionName = collectionPrefix+bd.getCollectionID();
+			String collectionName = collectionPrefix+padding(bd.getCollectionID(), 2);
 			collectionInstance = hadithFactory.getHadithCollection(collectionName);
 			bookInstance.addIsPartOf(collectionInstance);
 				
@@ -225,17 +237,24 @@ public static HadithCollection collectionInstance;
 
 	// ******************* Create Chapter Instances *****************
 	private static HadithChapter chapterInstance;
-	public static void ChapterInstance()
+	public static void ChapterInstance(String chapterTable)
 	{
 		
-		int row = rowCount("csb_bookssubchapters");
+		int row = rowCount( chapterTable);
+		String collectionPrefix = chapterTable.replaceAll("\\_.*","");
+		collectionPrefix = CollectionPrefix(collectionPrefix);
 		for(int i=1; i<=row; i++){
 			ChapterDataAccess cda = new ChapterDataAccess();
 			ChapterData cd = cda.setChapterAtt(i, conn, st);
-			String InstanceName = "chapter"+cd.getBookId()+cd.getChapIndex();
+			
+			//Instance Name functionality
+			
+			int chapKey = cd.getChapKey();
+			String chapKeyPadded = padding(chapKey, 4);
+			String instanceName = collectionPrefix+"-"+"CH"+chapKeyPadded;
 			
 			// Create Chapter Instance and add its data properties
-			chapterInstance = hadithFactory.createHadithChapter(InstanceName);
+			chapterInstance = hadithFactory.createHadithChapter(instanceName);
 			chapterInstance.addHadithChapterNo(cd.getChapterNo());
 			chapterInstance.addSequenceNo(cd.getSequenceNo());
 			chapterInstance.addLabel(cd.getChapLabelArab()+"@ar");
@@ -243,22 +262,42 @@ public static HadithCollection collectionInstance;
 			chapterInstance.addLabel(cd.getChapLabelEng()+"@en");
 			
 			// Object Type Properties
-			String bookName = "book"+cd.getBookId();
+			String bookName =collectionPrefix +"-BK"+padding(cd.getBookId(),2);
 			bookInstance = hadithFactory.getHadithBook(bookName);
 			chapterInstance.addIsPartOf(bookInstance);
 
 		}
-		ChapterTarjama();
+		ChapterTarjama(collectionPrefix);
 		
 		
 	}
+	public static String CollectionPrefix(String tableName) {
+		String prefix = "";
+		switch (tableName)
+		{
+		case "csb":  prefix = "SB"; // Sahih Bukhari 
+		break;
+		case "csm":  prefix = "SM"; // Sahih Muslim
+		break;
+		case "sab":  prefix = "SD"; // Sunan Abi Dauood
+		break;
+		case "maj":  prefix = "SM"; // Sunan Ibn Maja 
+		break;
+		case "nis":  prefix = "SN"; // Sunan Nasai
+		break;
+		case "tir":  prefix = "JT"; // Jam'i Tirmidhi
+		break;
+		default: prefix = "msc";
+		}
+		return prefix;
+	}
 	// ************* Chapter Tarjama ************
-	public static void ChapterTarjama()
+	public static void ChapterTarjama(String collectionPrefix)
 	{
 		ChapterTarjamaAccess cta = new ChapterTarjamaAccess();
 		ChapterTarjama ct = cta.setTarjamah(conn, st);
 		for (int j=0; j<ct.gethChapterNo().size(); j++) {
-			String chapName = "chapter"+ct.gethBookNo().get(j)+ct.gethChapterNo().get(j);
+			String chapName = collectionPrefix+"-CH"+padding(ct.gethChapterNo().get(j),4);
 			chapterInstance = hadithFactory.getHadithChapter(chapName);
 			ArrayList<String> tarjamaA = ct.gettarjamaArab();
 			ArrayList<String> tarjamaU = ct.gettarjamaEng();
@@ -272,34 +311,70 @@ public static HadithCollection collectionInstance;
 
 	// ******************* Create Hadith Instances *****************
 	private static Hadith hadithInstance;
-	public static void HadithInstance(){
-		int row = rowCount("csb_hadith");
+	public static void HadithInstance(String hadithTable){
+		int row = rowCount(hadithTable);
+		String collectionPrefix = hadithTable.replaceAll("\\_.*","");
+		collectionPrefix = CollectionPrefix(collectionPrefix);
 		for(int i=1; i<=row; i++){
+			
 			HadithDataAccess hda = new HadithDataAccess();
 			HadithData hd = hda.setHadithAtt(i, conn, st);
 			if(hd.getBookId()!=null){
-				String instanceName = "hadith"+hd.getBookId()+hd.getChapterId()+hd.getHadithRefNo();
+				
+				//Instance Name functionality
+				
+				int hadithKey = hd.getHadithKey();
+				String hadithKeyPadded = padding(hadithKey, 4);
+				String instanceName = collectionPrefix+"-"+"HD"+hadithKeyPadded;
+				
+				ArrayList<String> raqmList =	ExtractRaqm(hd.getFullHadithA());
+
 				// Create Hadith Instance and add its data properties
 				hadithInstance =	hadithFactory.createHadith(instanceName);
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 				hadithInstance.addSequenceNo(hd.getSequenceNo());
+				
+				
 				//clean Arabic text from html tags
 				String fullHadith = hd.getFullHadithA().replaceAll("<[^>]*>", " ");
 				hadithInstance.addFullHadith(fullHadith+"@ar");
-
 				hadithInstance.addFullHadith(hd.getFullHadithU()+"@ur");
 				hadithInstance.addFullHadith(hd.getFullHadithE()+"@en");
 				hadithInstance.addHadithType(hd.getHadithType()+"@ar");
 
 				// Object Type Properties
-				String ChapterName = "chapter"+hd.getBookId()+hd.getChapterId();
+				String ChapterName = collectionPrefix+"-CH"+padding(hd.getChapterId(),4);
 				chapterInstance = hadithFactory.getHadithChapter(ChapterName);
 				hadithInstance.addIsPartOf(chapterInstance);
 			}
 		}
 	}
+	
+	public static ArrayList<String> ExtractRaqm(String fullHadith) {
+		
+		ArrayList<String> narratorTag = new ArrayList();
+		ArrayList<String> raqmList = new ArrayList();
+		Matcher m = Pattern.compile("\\<a(.*?)\\/a>").matcher(fullHadith);
+		while ( m.find() ){
+		        if (m.group().length() != 0){
+		         // add the chapter-verse group to an arrayList (there can be more than one verse in a Hadith)
+		        narratorTag.add(m.group(1));
+		        }
+		}
+	//	System.out.println("size = " +narratorTag.size());
+		for(int i=0; i<narratorTag.size(); i++) {
+			System.out.println(narratorTag.get(i));
+			Matcher raqm = Pattern.compile("([0-9]+)").matcher(narratorTag.get(i));
+			while(raqm.find()) {
+				if(raqm.group().length()!=0) {
+					raqmList.add(raqm.group(1));
+				}
+			}	
+		}
+		return raqmList;
+	}
 	// ******************* Create Narrator Instances *****************
-	public static void HadithNarrator(){
+	public static void HadithNarrator(String narratorTable){
 		int row = rowCount("csb_hadith");
 		for(int i=1; i<=row; i++){
 			NarratorDataAccess nda = new NarratorDataAccess();
@@ -318,6 +393,7 @@ public static HadithCollection collectionInstance;
 				narratorInstance.addNarrated(hadithInstance);
 			}
 		}
+
 	}
 	 
 	// ******************* Create Matan Instances *****************

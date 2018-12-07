@@ -20,7 +20,8 @@ public class BookDataAccess {
 		BookData book = new BookData();
 		String hadithRange="";
 		try {
-			ResultSet s = st.executeQuery("SELECT `booksnames_id`, `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail`,`bookschapters_id` FROM csb_bookschapters where `bookschapters_id`="+Index);
+			ResultSet s = st.executeQuery("SELECT `booksnames_id`, `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail`,`bookschapters_id` "
+					+ "FROM csb_bookschapters where `bookschapters_id`="+Index);
 				while(s.next()){
 					book.setCollectionID(Integer.parseInt(s.getString(1)));
 					book.setSequenceNo(Integer.parseInt(s.getString(2)));

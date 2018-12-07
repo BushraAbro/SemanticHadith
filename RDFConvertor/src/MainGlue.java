@@ -20,11 +20,11 @@ public class MainGlue {
 	
 	ic.InitializeHadithEngine();
 	ic.createConnection();
-	ic.CollectionInstance();
-	ic.BookInstance();
-//	ic.ChapterInstance();
-//	ic.HadithInstance();
-//	ic.HadithNarrator();
+	ic.CollectionInstance("02_booksnames");
+	ic.BookInstance("csb_bookschapters");
+	ic.ChapterInstance("csb_bookssubchapters");
+	ic.HadithInstance("csb_hadith");
+//	ic.HadithNarrator("csb_hadith");
 	/*ic.sanadInstance();
 	ic.MatanInstance();
 	ic.verseInstance();

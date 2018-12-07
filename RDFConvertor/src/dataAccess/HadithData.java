@@ -25,6 +25,7 @@ public class HadithData {
 	private String fullHadithE;
 	
 	private String mukarrarat;
+	private Integer hadithKey;
 	
 	
 	public Integer getBookId() {
@@ -100,5 +101,12 @@ public class HadithData {
 		this.hadithUrl = hadithUrl;
 	}
 	
+	
+	public Integer getHadithKey() {
+		return hadithKey;
+	}
+	public void setHadithKey(Integer hadithKey) {
+		this.hadithKey = hadithKey;
+	}
 
 }
