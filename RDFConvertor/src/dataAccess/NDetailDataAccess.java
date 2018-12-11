@@ -14,7 +14,7 @@ public class NDetailDataAccess {
 					+ "FROM `narratorsdetail` "
 					+ "WHERE `RaqamArRavi` ="+raqm);
 				while(s.next()){
-
+					narratorDetail.setNarratorId(Integer.parseInt(s.getString(1)));
 					narratorDetail.setNarratorName(s.getString(2));
 					narratorDetail.setKunyat(s.getString(2));
 					narratorDetail.setIsmShuhra(s.getString(3));
@@ -23,7 +23,7 @@ public class NDetailDataAccess {
 					narratorDetail.setAnNishat(s.getString(6));
 					narratorDetail.setMazhab(s.getString(7));
 					narratorDetail.setRutba(s.getString(8));
-					narratorDetail.setTabqa(Integer.parseInt(s.getString(9)));
+					narratorDetail.setTabqa(s.getString(9));
 					narratorDetail.setDeathYear(Integer.parseInt(s.getString(10)));
 					narratorDetail.setBirthYear(Integer.parseInt(s.getString(11)));
 					narratorDetail.setAge(Integer.parseInt(s.getString(12)));

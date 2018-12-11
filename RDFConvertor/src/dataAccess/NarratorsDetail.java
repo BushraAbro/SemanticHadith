@@ -11,7 +11,7 @@ public class NarratorsDetail {
 	private String anNishat;
 	private String mazhab;
 	private String rutba;
-	private Integer tabqa;
+	private String tabqa;
 	private Integer deathYear;
 	private Integer birthYear;
 	private  Integer age;
@@ -81,10 +81,11 @@ public class NarratorsDetail {
 	public void setRutba(String rutba) {
 		this.rutba = rutba;
 	}
-	public Integer getTabqa() {
+	
+	public String getTabqa() {
 		return tabqa;
 	}
-	public void setTabqa(Integer tabqa) {
+	public void setTabqa(String tabqa) {
 		this.tabqa = tabqa;
 	}
 	public Integer getDeathYear() {

@@ -326,22 +326,26 @@ public static HadithCollection collectionInstance;
 				int hadithKey = hd.getHadithKey();
 				String hadithKeyPadded = padding(hadithKey, 4);
 				String instanceName = collectionPrefix+"-"+"HD"+hadithKeyPadded;
+				// Create Hadith Instance and add its data properties
+				hadithInstance =	hadithFactory.createHadith(instanceName);
 				
 				ArrayList<String> raqmList =	ExtractRaqm(hd.getFullHadithA());
 				NDetailDataAccess nda = new NDetailDataAccess();
 				
-				
-
-				// Create Hadith Instance and add its data properties
-				hadithInstance =	hadithFactory.createHadith(instanceName);
-				for(i=0; i<raqmList.size();i++)
+				for(i=0; i<raqmList.size()-1;i++)
 				{
+				//	System.out.println("narrator: "+ raqmList.get(i));
 					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(i)), conn, st);
-					HadithNarrator(Integer.parseInt(raqmList.get(i)),nd,hadithInstance);
+					HNarrator(Integer.parseInt(raqmList.get(i)),nd,hadithInstance);
 				}
+				
+				Integer lastRaqm = Integer.parseInt(raqmList.get(raqmList.size()-1));
+				NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
+				//System.out.println("Root narrator: "+ lastRaqm);
+				HadithRootNarrator(lastRaqm,nd,hadithInstance);
+
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 				hadithInstance.addSequenceNo(hd.getSequenceNo());
-				
 				
 				//clean Arabic text from html tags
 				String fullHadith = hd.getFullHadithA().replaceAll("<[^>]*>", " ");
@@ -355,6 +359,7 @@ public static HadithCollection collectionInstance;
 				String ChapterName = collectionPrefix+"-CH"+padding(hd.getChapterId(),4);
 				chapterInstance = hadithFactory.getHadithChapter(ChapterName);
 				hadithInstance.addIsPartOf(chapterInstance);
+				System.out.println(instanceName);
 			}
 		}
 	}
@@ -372,7 +377,7 @@ public static HadithCollection collectionInstance;
 		}
 	//	System.out.println("size = " +narratorTag.size());
 		for(int i=0; i<narratorTag.size(); i++) {
-			System.out.println(narratorTag.get(i));
+		//	System.out.println(narratorTag.get(i));
 			Matcher raqm = Pattern.compile("([0-9]+)").matcher(narratorTag.get(i));
 			while(raqm.find()) {
 				if(raqm.group().length()!=0) {
@@ -383,11 +388,15 @@ public static HadithCollection collectionInstance;
 		return raqmList;
 	}
 	// ******************* Create Narrator Instances *****************
-	public static void HadithNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
+	public static void HadithRootNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
 		String narratorKeyPadded = padding(raqm, 5);
-				String instanceName = "N"+narratorKeyPadded;
+				String instanceName = "RN"+narratorKeyPadded;
 
 				// Create Hadith Instance and add its data properties
+				RootNarrrator rN = hadithFactory.getRootNarrrator(instanceName);
+				if(rN==null) {	// Check if Narrator already Exists in ontology
+				
+				
 				RootNarrrator narratorInstance =	hadithFactory.createRootNarrrator(instanceName);
 				narratorInstance.addName(nd.getNarratorName()+"@ar");
 				narratorInstance.addFirstChar(nd.getnFirstChar());
@@ -405,9 +414,55 @@ public static HadithCollection collectionInstance;
 				narratorInstance.addKunyat(nd.getKunyat());
 				narratorInstance.addSunAlMilad(nd.getBirthYear());
 				narratorInstance.addSunAlWafat(nd.getDeathYear());
-
-				// Object Type Properties
+				narratorInstance.addRaqamArRavi(nd.getNarratorId());
+				// Object Type Property
 				narratorInstance.addNarrated(hadithInstance);
+			//	System.out.println("Root narrator created");
+			//	System.out.println(narratorInstance);
+				}
+				// Object Type Properties
+				else{
+					rN.addNarrated(hadithInstance);
+				}
+
+	}
+	// ******************* Create Narrator Instances *****************
+	public static void HNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
+		String narratorKeyPadded = padding(raqm, 5);
+				String instanceName = "HN"+narratorKeyPadded;
+
+				// Create Hadith Instance and add its data properties
+				HadithNarrator rN = hadithFactory.getHadithNarrator(instanceName);
+				if(rN==null) { // Check if Narrator already Exists in ontology
+				
+				HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
+				narratorInstance.addName(nd.getNarratorName()+"@ar");
+				narratorInstance.addFirstChar(nd.getnFirstChar());
+				narratorInstance.addAkhtalatTadlees(nd.getAkhtalatTadlees());
+				narratorInstance.addAlAqama(nd.getAqamah());
+				narratorInstance.addAlMawali(nd.getAlMawali());
+				narratorInstance.addAnNishat(nd.getAnNishat());
+				narratorInstance.addBaladAlWafat(nd.getDeathCity());
+				narratorInstance.addIsmAsSuhra(nd.getIsmShuhra());
+				narratorInstance.addTaqba(nd.getTabqa());
+				narratorInstance.addNasab(nd.getNasab());
+				narratorInstance.addLaqab(nd.getLaqab());
+				narratorInstance.addUmmarArRavi(nd.getAge());
+				narratorInstance.addMazhab(nd.getMazhab());
+				narratorInstance.addKunyat(nd.getKunyat());
+				narratorInstance.addSunAlMilad(nd.getBirthYear());
+				narratorInstance.addSunAlWafat(nd.getDeathYear());
+				narratorInstance.addRaqamArRavi(nd.getNarratorId());
+				// Object Type Property
+				narratorInstance.addNarrated(hadithInstance);
+				
+			//	System.out.println("narrator created");
+			//	System.out.println(narratorInstance);
+				}
+				// Object Type Properties
+				else{
+					rN.addNarrated(hadithInstance);
+				}
 
 	}
 	 
