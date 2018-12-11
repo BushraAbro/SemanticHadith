@@ -328,9 +328,17 @@ public static HadithCollection collectionInstance;
 				String instanceName = collectionPrefix+"-"+"HD"+hadithKeyPadded;
 				
 				ArrayList<String> raqmList =	ExtractRaqm(hd.getFullHadithA());
+				NDetailDataAccess nda = new NDetailDataAccess();
+				
+				
 
 				// Create Hadith Instance and add its data properties
 				hadithInstance =	hadithFactory.createHadith(instanceName);
+				for(i=0; i<raqmList.size();i++)
+				{
+					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(i)), conn, st);
+					HadithNarrator(Integer.parseInt(raqmList.get(i)),nd,hadithInstance);
+				}
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 				hadithInstance.addSequenceNo(hd.getSequenceNo());
 				
@@ -338,6 +346,7 @@ public static HadithCollection collectionInstance;
 				//clean Arabic text from html tags
 				String fullHadith = hd.getFullHadithA().replaceAll("<[^>]*>", " ");
 				hadithInstance.addFullHadith(fullHadith+"@ar");
+				
 				hadithInstance.addFullHadith(hd.getFullHadithU()+"@ur");
 				hadithInstance.addFullHadith(hd.getFullHadithE()+"@en");
 				hadithInstance.addHadithType(hd.getHadithType()+"@ar");
@@ -374,25 +383,31 @@ public static HadithCollection collectionInstance;
 		return raqmList;
 	}
 	// ******************* Create Narrator Instances *****************
-	public static void HadithNarrator(String narratorTable){
-		int row = rowCount("csb_hadith");
-		for(int i=1; i<=row; i++){
-			NarratorDataAccess nda = new NarratorDataAccess();
-			Raavi n = nda.setNarratorAtt(i, conn, st);
-			if(n.gethadithID()!=null){
-				String instanceName = "narrator"+n.gethadithID();
+	public static void HadithNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
+		String narratorKeyPadded = padding(raqm, 5);
+				String instanceName = "N"+narratorKeyPadded;
 
 				// Create Hadith Instance and add its data properties
 				RootNarrrator narratorInstance =	hadithFactory.createRootNarrrator(instanceName);
-				narratorInstance.addName(n.getRaavi()+"@ar");
-				System.out.println(n.getRaavi());
+				narratorInstance.addName(nd.getNarratorName()+"@ar");
+				narratorInstance.addFirstChar(nd.getnFirstChar());
+				narratorInstance.addAkhtalatTadlees(nd.getAkhtalatTadlees());
+				narratorInstance.addAlAqama(nd.getAqamah());
+				narratorInstance.addAlMawali(nd.getAlMawali());
+				narratorInstance.addAnNishat(nd.getAnNishat());
+				narratorInstance.addBaladAlWafat(nd.getDeathCity());
+				narratorInstance.addIsmAsSuhra(nd.getIsmShuhra());
+				narratorInstance.addTaqba(nd.getTabqa());
+				narratorInstance.addNasab(nd.getNasab());
+				narratorInstance.addLaqab(nd.getLaqab());
+				narratorInstance.addUmmarArRavi(nd.getAge());
+				narratorInstance.addMazhab(nd.getMazhab());
+				narratorInstance.addKunyat(nd.getKunyat());
+				narratorInstance.addSunAlMilad(nd.getBirthYear());
+				narratorInstance.addSunAlWafat(nd.getDeathYear());
 
 				// Object Type Properties
-				String hadithName = "hadith"+n.getBookId()+n.getChapterId()+n.gethadithID();
-				hadithInstance = hadithFactory.getHadith(hadithName);
 				narratorInstance.addNarrated(hadithInstance);
-			}
-		}
 
 	}
 	 

@@ -18,7 +18,7 @@ public class BookDataAccess {
 
 	public static BookData setBookAtt(int Index,Connection conn, Statement st){
 		BookData book = new BookData();
-		String hadithRange="";
+//		String hadithRange="";
 		try {
 			ResultSet s = st.executeQuery("SELECT `booksnames_id`, `c_sequence`,`c_number`, `c_arabic_t`,`c_urdu`,`c_english`,`c_arabic_detail_t`,`c_urdu_detail`,`c_english_detail`,`bookschapters_id` "
 					+ "FROM csb_bookschapters where `bookschapters_id`="+Index);
