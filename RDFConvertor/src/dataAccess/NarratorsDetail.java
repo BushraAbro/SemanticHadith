@@ -13,7 +13,7 @@ public class NarratorsDetail {
 	private String rutba;
 	private String tabqa;
 	private Integer deathYear;
-	private Integer birthYear;
+	private String birthYear;
 	private  Integer age;
 	private String aqamah;
 	private String deathCity;
@@ -94,10 +94,11 @@ public class NarratorsDetail {
 	public void setDeathYear(Integer deathYear) {
 		this.deathYear = deathYear;
 	}
-	public Integer getBirthYear() {
+
+	public String getBirthYear() {
 		return birthYear;
 	}
-	public void setBirthYear(Integer birthYear) {
+	public void setBirthYear(String birthYear) {
 		this.birthYear = birthYear;
 	}
 	public Integer getAge() {

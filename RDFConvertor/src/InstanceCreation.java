@@ -310,9 +310,10 @@ public static HadithCollection collectionInstance;
 	}
 
 	// ******************* Create Hadith Instances *****************
-	private static Hadith hadithInstance;
+	//private static Hadith hadithInstance;
 	public static void HadithInstance(String hadithTable){
 		int row = rowCount(hadithTable);
+		Hadith hadithInstance;
 		String collectionPrefix = hadithTable.replaceAll("\\_.*","");
 		collectionPrefix = CollectionPrefix(collectionPrefix);
 		for(int i=1; i<=row; i++){
@@ -322,7 +323,6 @@ public static HadithCollection collectionInstance;
 			if(hd.getBookId()!=null){
 				
 				//Instance Name functionality
-				
 				int hadithKey = hd.getHadithKey();
 				String hadithKeyPadded = padding(hadithKey, 4);
 				String instanceName = collectionPrefix+"-"+"HD"+hadithKeyPadded;
@@ -331,19 +331,21 @@ public static HadithCollection collectionInstance;
 				
 				ArrayList<String> raqmList =	ExtractRaqm(hd.getFullHadithA());
 				NDetailDataAccess nda = new NDetailDataAccess();
-				
-				for(i=0; i<raqmList.size()-1;i++)
+				int raqmSize = raqmList.size();
+				if(raqmSize!=0){
+				/*for(i=0; i<raqmSize-1;i++)
 				{
 				//	System.out.println("narrator: "+ raqmList.get(i));
 					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(i)), conn, st);
 					HNarrator(Integer.parseInt(raqmList.get(i)),nd,hadithInstance);
 				}
-				
-				Integer lastRaqm = Integer.parseInt(raqmList.get(raqmList.size()-1));
+				*/
+				Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
 				NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
+				
 				//System.out.println("Root narrator: "+ lastRaqm);
 				HadithRootNarrator(lastRaqm,nd,hadithInstance);
-
+				}
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 				hadithInstance.addSequenceNo(hd.getSequenceNo());
 				
@@ -396,7 +398,7 @@ public static HadithCollection collectionInstance;
 				RootNarrrator rN = hadithFactory.getRootNarrrator(instanceName);
 				if(rN==null) {	// Check if Narrator already Exists in ontology
 				
-				
+					if(nd!=null){
 				RootNarrrator narratorInstance =	hadithFactory.createRootNarrrator(instanceName);
 				narratorInstance.addName(nd.getNarratorName()+"@ar");
 				narratorInstance.addFirstChar(nd.getnFirstChar());
@@ -419,6 +421,7 @@ public static HadithCollection collectionInstance;
 				narratorInstance.addNarrated(hadithInstance);
 			//	System.out.println("Root narrator created");
 			//	System.out.println(narratorInstance);
+					}
 				}
 				// Object Type Properties
 				else{
