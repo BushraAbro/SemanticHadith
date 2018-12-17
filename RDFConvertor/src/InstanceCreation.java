@@ -335,8 +335,6 @@ public static HadithCollection collectionInstance;
 				int raqmSize = raqmList.size();
 				if(raqmSize!=0){
 
-				for(i=0; i<raqmSize; i++)
-
 				for(int j=0; j<raqmSize;j++)
 
 				{
@@ -456,33 +454,33 @@ public static HadithCollection collectionInstance;
 				if(rN==null) { // Check if Narrator already Exists in ontology
 				HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
 
-					HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
+					HadithNarrator narratorInstance1 =	hadithFactory.createHadithNarrator(instanceName);
 					if(nd!=null){
 				
-				narratorInstance.addName(nd.getNarratorName()+"@ar");
-				narratorInstance.addFirstChar(nd.getnFirstChar());
-				narratorInstance.addAkhtalatTadlees(nd.getAkhtalatTadlees());
-				narratorInstance.addAlAqama(nd.getAqamah());
-				narratorInstance.addAlMawali(nd.getAlMawali());
-				narratorInstance.addAnNishat(nd.getAnNishat());
-				narratorInstance.addBaladAlWafat(nd.getDeathCity());
-				narratorInstance.addIsmAsSuhra(nd.getIsmShuhra());
-				narratorInstance.addTaqba(nd.getTabqa());
-				narratorInstance.addNasab(nd.getNasab());
-				narratorInstance.addLaqab(nd.getLaqab());
-				narratorInstance.addUmmarArRavi(nd.getAge());
-				narratorInstance.addMazhab(nd.getMazhab());
-				narratorInstance.addKunyat(nd.getKunyat());
-				narratorInstance.addSunAlMilad(nd.getBirthYear());
-				narratorInstance.addSunAlWafat(nd.getDeathYear());
-				narratorInstance.addRaqamArRavi(nd.getNarratorId());
+				narratorInstance1.addName(nd.getNarratorName()+"@ar");
+				narratorInstance1.addFirstChar(nd.getnFirstChar());
+				narratorInstance1.addAkhtalatTadlees(nd.getAkhtalatTadlees());
+				narratorInstance1.addAlAqama(nd.getAqamah());
+				narratorInstance1.addAlMawali(nd.getAlMawali());
+				narratorInstance1.addAnNishat(nd.getAnNishat());
+				narratorInstance1.addBaladAlWafat(nd.getDeathCity());
+				narratorInstance1.addIsmAsSuhra(nd.getIsmShuhra());
+				narratorInstance1.addTaqba(nd.getTabqa());
+				narratorInstance1.addNasab(nd.getNasab());
+				narratorInstance1.addLaqab(nd.getLaqab());
+				narratorInstance1.addUmmarArRavi(nd.getAge());
+				narratorInstance1.addMazhab(nd.getMazhab());
+				narratorInstance1.addKunyat(nd.getKunyat());
+				narratorInstance1.addSunAlMilad(nd.getBirthYear());
+				narratorInstance1.addSunAlWafat(nd.getDeathYear());
+				narratorInstance1.addRaqamArRavi(nd.getNarratorId());
 					}
 					else{
-						narratorInstance.addRaqamArRavi(raqm);
+						narratorInstance1.addRaqamArRavi(raqm);
 						numberOfMissingRaqm++;
 					}
 				// Object Type Property
-				narratorInstance.addNarrated(hadithInstance);
+				narratorInstance1.addNarrated(hadithInstance);
 			//	System.out.println("narrator created");
 			//	System.out.println(narratorInstance);
 				}
