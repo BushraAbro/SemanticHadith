@@ -334,31 +334,31 @@ public static HadithCollection collectionInstance;
 			
 				int raqmSize = raqmList.size();
 				if(raqmSize!=0){
-<<<<<<< HEAD
+
 				for(i=0; i<raqmSize; i++)
-=======
+
 				for(int j=0; j<raqmSize;j++)
->>>>>>> branch 'master' of https://github.com/BushraAbro/SemanticHadith.git
+
 				{
 				//	System.out.println("narrator: "+ raqmList.get(i));
 					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(j)), conn, st);
 					HNarrator(Integer.parseInt(raqmList.get(j)),nd,hadithInstance);
 				}
-<<<<<<< HEAD
+
 			//	Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
 			//	NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
-=======
+
 				
 			//	Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
 				//NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
->>>>>>> branch 'master' of https://github.com/BushraAbro/SemanticHadith.git
+
 				
 				//System.out.println("Root narrator: "+ lastRaqm);
-<<<<<<< HEAD
+
 			//	HadithRootNarrator(lastRaqm,nd,hadithInstance);
-=======
+
 				//HadithRootNarrator(lastRaqm,nd,hadithInstance);
->>>>>>> branch 'master' of https://github.com/BushraAbro/SemanticHadith.git
+
 				}
 				
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
@@ -454,13 +454,11 @@ public static HadithCollection collectionInstance;
 				// Create Hadith Instance and add its data properties
 				HadithNarrator rN = hadithFactory.getHadithNarrator(instanceName);
 				if(rN==null) { // Check if Narrator already Exists in ontology
-<<<<<<< HEAD
 				HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
-=======
+
 					HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
 					if(nd!=null){
 				
->>>>>>> branch 'master' of https://github.com/BushraAbro/SemanticHadith.git
 				narratorInstance.addName(nd.getNarratorName()+"@ar");
 				narratorInstance.addFirstChar(nd.getnFirstChar());
 				narratorInstance.addAkhtalatTadlees(nd.getAkhtalatTadlees());
