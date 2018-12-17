@@ -331,21 +331,22 @@ public static HadithCollection collectionInstance;
 				
 				ArrayList<String> raqmList =	ExtractRaqm(hd.getFullHadithA());
 				NDetailDataAccess nda = new NDetailDataAccess();
+			
 				int raqmSize = raqmList.size();
 				if(raqmSize!=0){
-				/*for(i=0; i<raqmSize-1;i++)
+				for(i=0; i<raqmSize; i++)
 				{
 				//	System.out.println("narrator: "+ raqmList.get(i));
 					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(i)), conn, st);
 					HNarrator(Integer.parseInt(raqmList.get(i)),nd,hadithInstance);
 				}
-				*/
-				Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
-				NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
+			//	Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
+			//	NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
 				
 				//System.out.println("Root narrator: "+ lastRaqm);
-				HadithRootNarrator(lastRaqm,nd,hadithInstance);
+			//	HadithRootNarrator(lastRaqm,nd,hadithInstance);
 				}
+				
 				hadithInstance.addHadithReferenceNo(hd.getHadithRefNo());
 				hadithInstance.addSequenceNo(hd.getSequenceNo());
 				
@@ -437,7 +438,6 @@ public static HadithCollection collectionInstance;
 				// Create Hadith Instance and add its data properties
 				HadithNarrator rN = hadithFactory.getHadithNarrator(instanceName);
 				if(rN==null) { // Check if Narrator already Exists in ontology
-				
 				HadithNarrator narratorInstance =	hadithFactory.createHadithNarrator(instanceName);
 				narratorInstance.addName(nd.getNarratorName()+"@ar");
 				narratorInstance.addFirstChar(nd.getnFirstChar());
