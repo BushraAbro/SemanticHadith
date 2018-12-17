@@ -12,9 +12,9 @@ public class NarratorsDetail {
 	private String mazhab;
 	private String rutba;
 	private String tabqa;
-	private Integer deathYear;
+	private String deathYear;
 	private String birthYear;
-	private  Integer age;
+	private Integer age;
 	private String aqamah;
 	private String deathCity;
 	private String akhtalatTadlees;
@@ -88,13 +88,13 @@ public class NarratorsDetail {
 	public void setTabqa(String tabqa) {
 		this.tabqa = tabqa;
 	}
-	public Integer getDeathYear() {
+
+	public String getDeathYear() {
 		return deathYear;
 	}
-	public void setDeathYear(Integer deathYear) {
+	public void setDeathYear(String deathYear) {
 		this.deathYear = deathYear;
 	}
-
 	public String getBirthYear() {
 		return birthYear;
 	}
