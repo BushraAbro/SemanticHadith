@@ -9,8 +9,8 @@
  */
 public class MainGlue {
 	public static void main(String[] args){
-		String SOURCE_FILE = "//Users/bushra/Dropbox/BukhariOntoEvents/HadithVoc.owl";
-	//	String SOURCE_FILE = "D:\\Dropbox\\BukhariOntoEvents\\HadithVoc.owl";
+	//	String SOURCE_FILE = "//Users/bushra/Dropbox/BukhariOntoEvents/HadithVoc.owl";
+		String SOURCE_FILE = "D:\\Dropbox\\BukhariOntoEvents\\HadithVoc.owl";
 		// final String SOURCE_URL = "http://www.lodislamica.me/ontology/hadith";
 	//	String OutputFile = "//Users/bushra/Desktop/HadithVocRDF.owl";
 		String workingDir = System.getProperty("user.dir");
