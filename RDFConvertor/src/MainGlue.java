@@ -19,7 +19,7 @@ public class MainGlue {
 	InstanceCreation ic = new InstanceCreation(SOURCE_FILE, OutputFile);
 	
 	ic.InitializeHadithEngine();
-	ic.createConnection();
+	//ic.createConnection("hadithFH");
 	ic.CollectionInstance("02_booksnames");
 	ic.BookInstance("csb_bookschapters");
 	ic.ChapterInstance("csb_bookssubchapters");
@@ -32,7 +32,7 @@ public class MainGlue {
 	ic.AssignObjectProperties();
 	ic.displayIndv();*/
 	ic.saveOnt();
-	ic.closeConnection();
+	//ic.closeConnection();
 	
 	}
 }

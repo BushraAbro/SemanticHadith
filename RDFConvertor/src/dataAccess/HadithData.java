@@ -26,8 +26,36 @@ public class HadithData {
 	
 	private String mukarrarat;
 	private Integer hadithKey;
+	private String englishRef;
+	private Integer engVol;
+	private Integer engBook;
+	private Integer engNumber;
 	
 	
+	public Integer getEngVol() {
+		return engVol;
+	}
+	public void setEngVol(Integer engVol) {
+		this.engVol = engVol;
+	}
+	public Integer getEngBook() {
+		return engBook;
+	}
+	public void setEngBook(Integer engBook) {
+		this.engBook = engBook;
+	}
+	public Integer getEngNumber() {
+		return engNumber;
+	}
+	public void setEngNumber(Integer engNumber) {
+		this.engNumber = engNumber;
+	}
+	public String getEnglishRef() {
+		return englishRef;
+	}
+	public void setEnglishRef(String englishRef) {
+		this.englishRef = englishRef;
+	}
 	public Integer getBookId() {
 		return bookId;
 	}

@@ -83,10 +83,10 @@ public class InstanceCreation  {
 		}
 	}
 
-	public static void createConnection(){
+	public static void createConnection(String dbName){
 
 		try {
-			conn = connectionFactory.createConnection();
+			conn = connectionFactory.createConnection(dbName);
 			st = conn.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,7 +149,7 @@ public class InstanceCreation  {
 public static HadithCollection collectionInstance;
 	// ******************* Create Collection Instances *****************
 	public static void CollectionInstance(String collectionTable){
-
+		createConnection("hadithFH");
 		int row = rowCount(collectionTable);
 		for(int i = 1; i<=row; i++){
 			CollectionDataAccess cda = new CollectionDataAccess();
@@ -167,6 +167,7 @@ public static HadithCollection collectionInstance;
 			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
 
 		}
+		closeConnection();
 	}
 	public static String padding(Integer number, Integer requiredDigits) {
 		String paddedString = "";
@@ -203,6 +204,7 @@ public static HadithCollection collectionInstance;
 	
 	private static HadithBook bookInstance;
 	public static void BookInstance(String bookTable){
+		createConnection("hadithFH");
 		int row = rowCount(bookTable);
 		for(int i = 1; i<=row; i++){
 			BookDataAccess bda = new BookDataAccess();
@@ -233,13 +235,14 @@ public static HadithCollection collectionInstance;
 			bookInstance.addIsPartOf(collectionInstance);
 				
 		}
+		closeConnection();
 	}
 
 	// ******************* Create Chapter Instances *****************
 	private static HadithChapter chapterInstance;
 	public static void ChapterInstance(String chapterTable)
 	{
-		
+		createConnection("hadithFH");	
 		int row = rowCount( chapterTable);
 		String collectionPrefix = chapterTable.replaceAll("\\_.*","");
 		collectionPrefix = CollectionPrefix(collectionPrefix);
@@ -268,7 +271,7 @@ public static HadithCollection collectionInstance;
 
 		}
 		ChapterTarjama(collectionPrefix);
-		
+		closeConnection();
 		
 	}
 	public static String CollectionPrefix(String tableName) {
@@ -312,12 +315,14 @@ public static HadithCollection collectionInstance;
 	// ******************* Create Hadith Instances *****************
 	//private static Hadith hadithInstance;
 	public static void HadithInstance(String hadithTable){
+		createConnection("hadithFH");
 		int row = rowCount(hadithTable);
 		Hadith hadithInstance;
 		String collectionPrefix = hadithTable.replaceAll("\\_.*","");
 		collectionPrefix = CollectionPrefix(collectionPrefix);
+		closeConnection();
 		for(int i=1; i<=row; i++){
-			
+			createConnection("hadithFH");
 			HadithDataAccess hda = new HadithDataAccess();
 			HadithData hd = hda.setHadithAtt(i, conn, st);
 			if(hd.getBookId()!=null){
@@ -338,24 +343,9 @@ public static HadithCollection collectionInstance;
 				for(int j=0; j<raqmSize;j++)
 
 				{
-				//	System.out.println("narrator: "+ raqmList.get(i));
 					NarratorsDetail nd = nda.setNarratorAtt(Integer.parseInt(raqmList.get(j)), conn, st);
 					HNarrator(Integer.parseInt(raqmList.get(j)),nd,hadithInstance);
 				}
-
-			//	Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
-			//	NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
-
-				
-			//	Integer lastRaqm = Integer.parseInt(raqmList.get(raqmSize-1));
-				//NarratorsDetail nd = nda.setNarratorAtt(lastRaqm, conn, st);
-
-				
-				//System.out.println("Root narrator: "+ lastRaqm);
-
-			//	HadithRootNarrator(lastRaqm,nd,hadithInstance);
-
-				//HadithRootNarrator(lastRaqm,nd,hadithInstance);
 
 				}
 				
@@ -374,11 +364,16 @@ public static HadithCollection collectionInstance;
 				String ChapterName = collectionPrefix+"-CH"+padding(hd.getChapterId(),4);
 				chapterInstance = hadithFactory.getHadithChapter(ChapterName);
 				hadithInstance.addIsPartOf(chapterInstance);
-				System.out.println(instanceName);
+				closeConnection();
+				getSunnahLinks(hd.getEngVol(),hd.getEngBook(), hd.getEngNumber());
+				//System.out.println(instanceName);
+				
 			}
 		}
 		System.out.println("missing narrators Record = "+ numberOfMissingRaqm);
 	}
+	
+	//********  Helping Function
 	
 	public static ArrayList<String> ExtractRaqm(String fullHadith) {
 		
@@ -403,6 +398,13 @@ public static HadithCollection collectionInstance;
 		}
 		return raqmList;
 	}
+	public static void getSunnahLinks(int volID, int bookId, int number) {
+		createConnection("sunnahdotcom");
+		
+		closeConnection();
+		
+	}
+	
 	// ******************* Create Narrator Instances *****************
 	public static void HadithRootNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
 		String narratorKeyPadded = padding(raqm, 5);
