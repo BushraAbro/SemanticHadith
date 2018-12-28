@@ -392,7 +392,7 @@ public static HadithCollection collectionInstance;
 		createConnection("sunnahdotcom");
 		SunnahdotcomAccess sda = new SunnahdotcomAccess();
 		Sunnahdotcom sd = sda.setAtt(volID, bookId, number, conn, st);
-		if(sd!=null){
+		if(sd.getLink()!=null){
 		hadithInstance.addSameAs(sd.getLink());
 		}else System.out.println("no data returned");
 		closeConnection();
