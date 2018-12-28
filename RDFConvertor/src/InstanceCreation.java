@@ -354,7 +354,10 @@ public static HadithCollection collectionInstance;
 				chapterInstance = hadithFactory.getHadithChapter(ChapterName);
 				hadithInstance.addIsPartOf(chapterInstance);
 				closeConnection();
+		System.out.println("refNo:"+hd.getHadithRefNo()+" vol: "+hd.getEngVol()+"book: "+hd.getEngBook()+"hadith: "+hd.getEngNumber());
 				String narratorEng = getSunnahLinks(hd.getEngVol(),hd.getEngBook(), hd.getEngNumber(), hadithInstance);
+
+				
 				hadithInstance.addNarratedBy(hadithFactory.createRootNarrrator("RN"+hadithKeyPadded));
 				hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addName(narratorEng);
 				//System.out.println(instanceName);
@@ -389,7 +392,7 @@ public static HadithCollection collectionInstance;
 		return raqmList;
 	}
 	public static String getSunnahLinks(int volID, int bookId, int number, Hadith hadithInstance) {
-		createConnection("sunnahdotcom");
+		createConnection("sunnah");
 		SunnahdotcomAccess sda = new SunnahdotcomAccess();
 		Sunnahdotcom sd = sda.setAtt(volID, bookId, number, conn, st);
 		if(sd.getLink()!=null){
