@@ -355,11 +355,13 @@ public static HadithCollection collectionInstance;
 				hadithInstance.addIsPartOf(chapterInstance);
 				closeConnection();
 		System.out.println("refNo:"+hd.getHadithRefNo()+" vol: "+hd.getEngVol()+"book: "+hd.getEngBook()+"hadith: "+hd.getEngNumber());
+		if(hd.getEngBook()!=null){
 				String narratorEng = getSunnahLinks(hd.getEngVol(),hd.getEngBook(), hd.getEngNumber(), hadithInstance);
-
+		
 				
 				hadithInstance.addNarratedBy(hadithFactory.createRootNarrrator("RN"+hadithKeyPadded));
 				hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addName(narratorEng);
+		}
 				//System.out.println(instanceName);
 			}
 		}

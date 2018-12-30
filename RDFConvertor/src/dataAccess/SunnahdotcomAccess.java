@@ -12,15 +12,15 @@ public class SunnahdotcomAccess {
 		try {
 			//System.out.println("volId : "+volId+"bookId: "+bookId+" number: "+number);
 			String query = "SELECT `narratorEng` ,`shareLink`"
-					+ " FROM `hadith2`"
+					+ " FROM `hadith`"
 					+ " WHERE `voLId`="+volId+" AND `bookId`="+bookId+" AND `hadithId`="+number ;
 			ResultSet s = st.executeQuery(query);
-			System.out.println(query);
+		//	System.out.println(query);
 		
 		
 			while(s.next()){
 				sdc.setNarratorEnglish(s.getString(1));
-				System.out.println(s.getString(1));
+			//	System.out.println(s.getString(1));
 				sdc.setLink(s.getString(2));
 				System.out.println(s.getString(2));
 			

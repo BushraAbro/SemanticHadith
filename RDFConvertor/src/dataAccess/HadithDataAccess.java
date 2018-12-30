@@ -44,7 +44,7 @@ public class HadithDataAccess {
 				// We need to split them to get volID, BookID and Number 
 				
 				List<String> list = Arrays.asList(s.getString(11).trim().split(","));
-				if(list.size()==3) {
+				if(list.size()>=3) {
 					Matcher ids;
 					ids = Pattern.compile("([0-9]+)").matcher(list.get(0));
 					while(ids.find()) {
