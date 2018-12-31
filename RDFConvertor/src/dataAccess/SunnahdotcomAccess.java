@@ -12,7 +12,7 @@ public class SunnahdotcomAccess {
 		try {
 			//System.out.println("volId : "+volId+"bookId: "+bookId+" number: "+number);
 			String query = "SELECT `narratorEng` ,`shareLink`"
-					+ " FROM `hadith`"
+					+ " FROM `hadith2`"
 					+ " WHERE `voLId`="+volId+" AND `bookId`="+bookId+" AND `hadithId`="+number ;
 			ResultSet s = st.executeQuery(query);
 		//	System.out.println(query);
