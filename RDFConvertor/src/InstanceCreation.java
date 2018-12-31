@@ -311,6 +311,7 @@ public static HadithCollection collectionInstance;
 	}
 	// ******************* Create Hadith Instances *****************
 	//private static Hadith hadithInstance;
+	 static int nullInMapping = 0;
 	public static void HadithInstance(String hadithTable){
 		createConnection("hadithFH");
 		int row = rowCount(hadithTable);
@@ -358,14 +359,16 @@ public static HadithCollection collectionInstance;
 		if(hd.getEngBook()!=null){
 				String narratorEng = getSunnahLinks(hd.getEngVol(),hd.getEngBook(), hd.getEngNumber(), hadithInstance);
 		
-				
+				if(narratorEng!=null) {
 				hadithInstance.addNarratedBy(hadithFactory.createRootNarrrator("RN"+hadithKeyPadded));
 				hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addName(narratorEng);
+				} else nullInMapping++;
 		}
 				//System.out.println(instanceName);
 			}
 		}
 		System.out.println("missing narrators Record = "+ numberOfMissingRaqm);
+		System.out.println("shown null in mapping = "+ nullInMapping);
 	}
 	
 	//********  Helping Function
@@ -393,17 +396,7 @@ public static HadithCollection collectionInstance;
 		}
 		return raqmList;
 	}
-	public static String getSunnahLinks(int volID, int bookId, int number, Hadith hadithInstance) {
-		createConnection("sunnah");
-		SunnahdotcomAccess sda = new SunnahdotcomAccess();
-		Sunnahdotcom sd = sda.setAtt(volID, bookId, number, conn, st);
-		if(sd.getLink()!=null){
-		hadithInstance.addSameAs(sd.getLink());
-		}else System.out.println("no data returned");
-		closeConnection();
-		
-		return sd.getNarratorEnglish();
-	}
+
 	
 	// ******************* Create Narrator Instances *****************
 	public static void HadithRootNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
@@ -445,6 +438,7 @@ public static HadithCollection collectionInstance;
 				}
 
 	}
+
 	 // ******************* Create Narrator Instances *****************
 	static int numberOfMissingRaqm =0;
 	public static void HNarrator(int raqm, NarratorsDetail nd, Hadith hadithInstance){
@@ -483,8 +477,6 @@ public static HadithCollection collectionInstance;
 					}
 				// Object Type Property
 				narratorInstance1.addNarrated(hadithInstance);
-			//	System.out.println("narrator created");
-			//	System.out.println(narratorInstance);
 				}
 				// Object Type Properties
 				else{
@@ -492,7 +484,51 @@ public static HadithCollection collectionInstance;
 				}
 
 	}
-	 
+	public static String getSunnahLinks(int volID, int bookId, int number, Hadith hadithInstance) {
+		createConnection("sunnah");
+		SunnahdotcomAccess sda = new SunnahdotcomAccess();
+		Sunnahdotcom sd = sda.setAtt(volID, bookId, number, conn, st);
+		if(sd.getLink()!=null){
+		hadithInstance.addSameAs(sd.getLink());
+		}else System.out.println("no data returned");
+		if(sd.getstartVerse()!=null) {
+			
+		}
+		closeConnection();
+		return sd.getNarratorEnglish();
+	}
+
+	// ******************* Create Verse Instances *****************
+	public static void verseInstance(){
+		int row = rowCount("hadith2");
+		for(int i=1; i<=row; i++){
+			VerseData vd = VerseDataAccess.setVerseData(i, conn, st);
+			Hadith hadithInstance = hadithFactory.getHadith("hadith"+i);
+			ArrayList<Integer> verseIndexE = vd.getVerseIndexE();
+			ArrayList<Integer> verseIndexS = vd.getVerseIndexS();
+			ArrayList<Integer> chapterIndex = vd.getChapterIndex();
+			int numOfVerses = verseIndexE.size();
+			if(numOfVerses!=0){
+				if(numOfVerses>1){ 	
+					for(int j = 0; j<numOfVerses; j++){
+						Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(j)+verseIndexS.get(j));	
+						verseInstance.addVerseIndex(verseIndexS.get(j));
+						verseInstance.addChapterIndex(chapterIndex.get(j));
+
+						hadithInstance.addContainsMentionOf(verseInstance);
+						verseInstance.addMentionedIn(hadithInstance);
+					}
+				}
+				else{
+					Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(0)+verseIndexS.get(0));	
+					verseInstance.addVerseIndex(verseIndexS.get(0));
+					verseInstance.addChapterIndex(chapterIndex.get(0));
+					hadithInstance.addContainsMentionOf(verseInstance);
+					verseInstance.addMentionedIn(hadithInstance);
+				}
+			}
+		}
+	}
 	// ******************* Create Matan Instances *****************
 	public static void MatanInstance(){
 		int row = rowCount("hadith2");
@@ -529,39 +565,6 @@ public static HadithCollection collectionInstance;
 			sanadInstance.addIsPartOf(hadithFactory.getHadith("hadith"+i));
 		}
 	}
-
-	// ******************* Create Verse Instances *****************
-	public static void verseInstance(){
-		int row = rowCount("hadith2");
-		for(int i=1; i<=row; i++){
-			VerseData vd = VerseDataAccess.setVerseData(i, conn, st);
-			Hadith hadithInstance = hadithFactory.getHadith("hadith"+i);
-			ArrayList<Integer> verseIndexE = vd.getVerseIndexE();
-			ArrayList<Integer> verseIndexS = vd.getVerseIndexS();
-			ArrayList<Integer> chapterIndex = vd.getChapterIndex();
-			int numOfVerses = verseIndexE.size();
-			if(numOfVerses!=0){
-				if(numOfVerses>1){ 	
-					for(int j = 0; j<numOfVerses; j++){
-						Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(j)+verseIndexS.get(j));	
-						verseInstance.addVerseIndex(verseIndexS.get(j));
-						verseInstance.addChapterIndex(chapterIndex.get(j));
-
-						hadithInstance.addContainsMentionOf(verseInstance);
-						verseInstance.addMentionedIn(hadithInstance);
-					}
-				}
-				else{
-					Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(0)+verseIndexS.get(0));	
-					verseInstance.addVerseIndex(verseIndexS.get(0));
-					verseInstance.addChapterIndex(chapterIndex.get(0));
-					hadithInstance.addContainsMentionOf(verseInstance);
-					verseInstance.addMentionedIn(hadithInstance);
-				}
-			}
-		}
-	}
-
 	//  ****************Helping function for CityInstance ****************
 	// Read City List from a text file and make a comparison with the Hadith text
 	public static ArrayList<String> readCityList(){

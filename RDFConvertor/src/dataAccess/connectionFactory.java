@@ -14,9 +14,9 @@ import java.sql.SQLException;
 public class connectionFactory {
 
 // mac
-//	public static final String port = "jdbc:mysql://localhost:8889/";
+	public static final String port = "jdbc:mysql://localhost:8889/";
 //windows 
-	public static final String port = "jdbc:mysql://localhost:3306/";
+//	public static final String port = "jdbc:mysql://localhost:3306/";
 	
 	public static final String encoding = "?characterEncoding=utf8";
 	
@@ -27,7 +27,7 @@ public class connectionFactory {
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			  return DriverManager.getConnection(port+dbName+encoding,"root", ""); 
+			  return DriverManager.getConnection(port+dbName+encoding,"root", "root"); 
 		} catch (SQLException | ClassNotFoundException e) {
 			 throw new RuntimeException("Error connecting to the database", e);
 		}
