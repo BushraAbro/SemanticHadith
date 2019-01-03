@@ -490,42 +490,38 @@ public static HadithCollection collectionInstance;
 		Sunnahdotcom sd = sda.setAtt(volID, bookId, number, conn, st);
 		if(sd.getLink()!=null){
 		hadithInstance.addSameAs(sd.getLink());
-		}else System.out.println("no data returned");
-		if(sd.getstartVerse()!=null) {
-			
+		}
+		// else System.out.println("no data returned");
+		if(sd.getstartVerse()!=null)
+		{
+		verseInstance(sd.getstartVerse(), sd.getEndVerse(), sd.getChapterIndex(), hadithInstance);	
 		}
 		closeConnection();
 		return sd.getNarratorEnglish();
 	}
 
 	// ******************* Create Verse Instances *****************
-	public static void verseInstance(){
-		int row = rowCount("hadith2");
-		for(int i=1; i<=row; i++){
-			VerseData vd = VerseDataAccess.setVerseData(i, conn, st);
-			Hadith hadithInstance = hadithFactory.getHadith("hadith"+i);
-			ArrayList<Integer> verseIndexE = vd.getVerseIndexE();
-			ArrayList<Integer> verseIndexS = vd.getVerseIndexS();
-			ArrayList<Integer> chapterIndex = vd.getChapterIndex();
-			int numOfVerses = verseIndexE.size();
-			if(numOfVerses!=0){
-				if(numOfVerses>1){ 	
-					for(int j = 0; j<numOfVerses; j++){
-						Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(j)+verseIndexS.get(j));	
-						verseInstance.addVerseIndex(verseIndexS.get(j));
-						verseInstance.addChapterIndex(chapterIndex.get(j));
-
-						hadithInstance.addContainsMentionOf(verseInstance);
-						verseInstance.addMentionedIn(hadithInstance);
-					}
-				}
-				else{
-					Verse verseInstance = hadithFactory.createVerse("Verse"+chapterIndex.get(0)+verseIndexS.get(0));	
-					verseInstance.addVerseIndex(verseIndexS.get(0));
-					verseInstance.addChapterIndex(chapterIndex.get(0));
+	public static void verseInstance(
+			ArrayList<Integer> startVerse,ArrayList<Integer> endVerse,
+			ArrayList<Integer> chapIndex, Hadith hadithInstance)
+	{
+		int numOfVerses = endVerse.size();
+		if(numOfVerses!=0){
+			if(numOfVerses>1){ 	
+				for(int j = 0; j<numOfVerses; j++){
+					Verse verseInstance = hadithFactory.createVerse("V-"+chapIndex.get(j)+startVerse.get(j));	
+					verseInstance.addVerseIndex(startVerse.get(j));
+					verseInstance.addChapterIndex(chapIndex.get(j));
 					hadithInstance.addContainsMentionOf(verseInstance);
 					verseInstance.addMentionedIn(hadithInstance);
 				}
+			}
+			else{
+				Verse verseInstance = hadithFactory.createVerse("V-"+chapIndex.get(0)+startVerse.get(0));	
+				verseInstance.addVerseIndex(startVerse.get(0));
+				verseInstance.addChapterIndex(chapIndex.get(0));
+				hadithInstance.addContainsMentionOf(verseInstance);
+				verseInstance.addMentionedIn(hadithInstance);
 			}
 		}
 	}
