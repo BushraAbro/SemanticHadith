@@ -162,9 +162,9 @@ public static HadithCollection collectionInstance;
 			// Create Collection Instance and add its data properties
 			collectionInstance = hadithFactory.createHadithCollection(instanceName);
 			//	collectionInstance.addHadithVolumeNo(cd.getVolNo());
-			collectionInstance.addLabel(cd.getCollectionArabName()+"@ar");
-			collectionInstance.addLabel(cd.getCollectionUrduName()+"@ur");
-			collectionInstance.addLabel(cd.getCollectionEngName()+"@en");
+			collectionInstance.addName(cd.getCollectionArabName()+"@ar");
+			collectionInstance.addName(cd.getCollectionUrduName()+"@ur");
+			collectionInstance.addName(cd.getCollectionEngName()+"@en");
 
 		}
 		closeConnection();
@@ -221,9 +221,9 @@ public static HadithCollection collectionInstance;
 			
 			bookInstance.addHadithBookNo(bd.getHadithBookNo());
 			bookInstance.addSequenceNo(bd.getSequenceNo());
-			bookInstance.addLabel(bd.getBookTitleA()+"@ar");
-			bookInstance.addLabel(bd.getBookTitleA()+"@ur");
-			bookInstance.addLabel(bd.getBookTitleA()+"@en");
+			bookInstance.addName(bd.getBookTitleA()+"@ar");
+			bookInstance.addName(bd.getBookTitleA()+"@ur");
+			bookInstance.addName(bd.getBookTitleA()+"@en");
 			bookInstance.addHadithBookIntro(bd.getHadithBookIntroA()+"@ar");
 			bookInstance.addHadithBookIntro(bd.getHadithBookIntroU()+"@ur");
 			bookInstance.addHadithBookIntro(bd.getHadithBookIntroE()+"@en");
@@ -259,9 +259,9 @@ public static HadithCollection collectionInstance;
 			chapterInstance = hadithFactory.createHadithChapter(instanceName);
 			chapterInstance.addHadithChapterNo(cd.getChapterNo());
 			chapterInstance.addSequenceNo(cd.getSequenceNo());
-			chapterInstance.addLabel(cd.getChapLabelArab()+"@ar");
-			chapterInstance.addLabel(cd.getChapLabelUrdu()+"@ur");
-			chapterInstance.addLabel(cd.getChapLabelEng()+"@en");
+			chapterInstance.addName(cd.getChapLabelArab()+"@ar");
+			chapterInstance.addName(cd.getChapLabelUrdu()+"@ur");
+			chapterInstance.addName(cd.getChapLabelEng()+"@en");
 			
 			// Object Type Properties
 			String bookName =collectionPrefix +"-BK"+padding(cd.getBookId(),2);
@@ -361,9 +361,9 @@ public static HadithCollection collectionInstance;
 					String narratorEng = getSunnahLinks(hd.getEngVol(),hd.getEngBook(), hd.getEngNumber(), hadithInstance);
 
 					if(narratorEng!=null) {
-						hadithInstance.addNarratedBy(hadithFactory.createRootNarrrator("RN"+hadithKeyPadded));
+						/*hadithInstance.addNarratedBy(hadithFactory.createRootNarrrator("RN"+hadithKeyPadded));
 						hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addName(narratorEng);
-						hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addNarrated(hadithInstance);
+						hadithFactory.getRootNarrrator("RN"+hadithKeyPadded).addNarrated(hadithInstance);*/
 					} else nullInMapping++;
 				}
 				//System.out.println(instanceName);

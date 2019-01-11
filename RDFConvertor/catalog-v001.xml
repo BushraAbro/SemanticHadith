@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1544797693395" name="duplicate:http://www.lodislamica.me/ontology/hadithVoc#" uri="HadithVocRDF.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1544797693395" name="duplicate:http://www.lodislamica.me/ontology/hadithVoc#" uri="HadithVocRDFTemp.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1547116604227" name="duplicate:http://www.lodislamica.me/ontology/hadithVoc#" uri="HadithVocRDFTemp2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1547116604227" name="duplicate:http://www.lodislamica.me/ontology/hadithVoc#" uri="HadithVocRDF.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1547116604227" name="duplicate:http://www.lodislamica.me/ontology/hadithVoc#" uri="HadithVocRDFTemp.owl"/>
     </group>
 </catalog>

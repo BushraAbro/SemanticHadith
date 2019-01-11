@@ -14,7 +14,7 @@ public class MainGlue {
 		// final String SOURCE_URL = "http://www.lodislamica.me/ontology/hadith";
 	//	String OutputFile = "//Users/bushra/Desktop/HadithVocRDF.owl";
 		String workingDir = System.getProperty("user.dir");
-		String OutputFile = workingDir+"/HadithVocRDFTemp.owl";
+		String OutputFile = workingDir+"/HadithVocFinal.owl";
 		System.out.println(OutputFile);
 	InstanceCreation ic = new InstanceCreation(SOURCE_FILE, OutputFile);
 	
@@ -24,6 +24,8 @@ public class MainGlue {
 	ic.BookInstance("csb_bookschapters");
 	ic.ChapterInstance("csb_bookssubchapters");
 	ic.HadithInstance("csb_hadith");
+	ic.HadithToHadith("csb_hadith");
+	ic.saveOnt();
 //	ic.HadithNarrator("csb_hadith");
 	/*ic.sanadInstance();
 	ic.MatanInstance();
@@ -31,7 +33,7 @@ public class MainGlue {
 	ic.cityInstance();
 	ic.AssignObjectProperties();
 	ic.displayIndv();*/
-	ic.saveOnt();
+	
 	//ic.closeConnection();
 	
 	}
