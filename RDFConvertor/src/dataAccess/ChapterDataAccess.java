@@ -19,7 +19,7 @@ public class ChapterDataAccess {
 		ChapterData chapter = new ChapterData();
 		try {
 			
-			ResultSet s = st.executeQuery("SELECT `bookschapters_id`,`s_sequence`,`s_number`,`s_arabic_t`,`urdu`,`s_english`,"
+			ResultSet s = st.executeQuery("SELECT `bookschapters_id`,`s_sequence`,`s_number`,`s_arabic_t`,`s_urdu`,`s_english`,"
 					+ "`bookssubchapters_id`, `bookssubchapters_id`"
 					+ " FROM csb_bookssubchapters "
 					+ "where `bookssubchapters_id`="+Index );
